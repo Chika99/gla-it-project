@@ -1,0 +1,75 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block title_block %}
+    Order Detail
+{% endblock %}
+
+{% block body_block %}
+    <h2>Order Detail</h2>
+    title: {{ order.title }}
+    <br>
+    seller: {{ order.username }}
+    <br>
+    status: {{ order.status }}
+    <br>
+    description: {{ order.description }}
+    <br>
+    tags:
+    {% for tag in order.tags %}
+        {{ tag }}
+    {% endfor %}
+    <br>
+    start_price :{{ order.start_price }}
+    <br>
+    highest_price :{{ order.highest_price }}
+    <br>
+    publish_time: {{ order.publish_time }}
+    <br>
+    end_time: {{ order.end_time }}
+    <br>
+    images:
+    {% for image in order.images %}
+        <img src="{{ image }}" alt="image" width="50">
+    {% endfor %}
+    <hr>
+    <h2>Bid</h2>
+    {% if bids %}
+        {% for bid in bids %}
+            id: {{ bid.id }}
+            <br>
+            user: {{ bid.username }}
+            <br>
+            price: {{ bid.price }}
+            <br>
+            time: {{ bid.time }}
+            <hr>
+        {% endfor %}
+    {% else %}
+        No bids
+    {% endif %}
+
+    <h2>Message</h2>
+    {% if messages %}
+        {% for m in messages %}
+            id: {{ m.id }}
+            <br>
+            user: {{ m.username }}
+            <br>
+            content: {{ m.content }}
+            <br>
+            time: {{ m.time }}
+            <br>
+            reply: {{ m.reply_id }}
+            <br>
+            <a href="{% url 'app:reply_message' order.id m.id %}">reply this</a>
+            <hr>
+        {% endfor %}
+    {% else %}
+        No messages
+    {% endif %}
+    <br>
+    <a href="{% url 'app:add_bid' order.id %}">add bid</a>
+    <br>
+    <a href="{% url 'app:add_message' order.id %}">leave message</a>
+{% endblock %}

@@ -1,0 +1,68 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block title_block %}
+    Index
+{% endblock %}
+
+{% block body_block %}
+    {% if user.is_authenticated %}
+        <ul>
+            <li>
+                <a href="{% url 'app:my' %}">my</a>
+            </li>
+            <li>
+                <a href="{% url 'app:add_order' %}">add order</a>
+            </li>
+            <li>
+                <a href="{% url 'app:logout' %}">logout</a>
+            </li>
+        </ul>
+    {% endif %}
+    <h2>Orders</h2>
+    <div class="pagination">
+    <span class="step-links">
+        {% if page.has_previous %}
+            <a href="?page=1&size={{ size }}">&laquo; first</a>
+            <a href="?page={{ page.previous_page_number }}&size={{ size }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page.number }} of {{ page.paginator.num_pages }}.
+        </span>
+
+        {% if page.has_next %}
+            <a href="?page={{ page.next_page_number }}&size={{ size }}">next</a>
+            <a href="?page={{ page.paginator.num_pages }}&size={{ size }}">last &raquo;</a>
+        {% endif %}
+    </span>
+    </div>
+    {% for order in page %}
+        <a href="{% url 'app:order_detail' order.id %}">title: {{ order.title }}</a>
+        <br>
+        seller: {{ order.username }}
+        <br>
+        status: {{ order.status }}
+        <br>
+        description: {{ order.description }}
+        <br>
+        tags:
+        {% for tag in order.tags %}
+            {{ tag }}
+        {% endfor %}
+        <br>
+        start_price :{{ order.start_price }}
+        <br>
+        highest_price :{{ order.highest_price }}
+        <br>
+        publish_time: {{ order.publish_time }}
+        <br>
+        end_time: {{ order.end_time }}
+        <br>
+        images:
+        {% for image in order.images %}
+            <img src="{{ image }}" alt="image" width="50">
+        {% endfor %}
+        <hr>
+    {% endfor %}
+{% endblock %}

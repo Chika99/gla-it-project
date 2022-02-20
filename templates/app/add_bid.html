@@ -1,0 +1,23 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block title_block %}
+    Add bid
+{% endblock %}
+
+{% block body_block %}
+    <h1>Add order</h1>
+    {% if message %}
+        {{ message }}
+    {% endif %}
+    {% if added %}
+        Success
+        <a href="{% url 'app:order_detail' order_id %}">Return order detail</a>
+    {% else %}
+        <form id="bid_form" method="post" action="{% url 'app:add_bid' order_id %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ bid_form.as_p }}
+            <input type="submit" name="submit" value="Submit"/>
+        </form>
+    {% endif %}
+{% endblock %}

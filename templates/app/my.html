@@ -1,0 +1,51 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block title_block %}
+    Profile
+{% endblock %}
+
+{% block body_block %}
+    {% if user.avatar %}
+        avatar:<img src="{{ user.avatar.url }}" alt="user_avatar" width="50">
+    {% else %}
+        no avatar
+    {% endif %}
+    <br>
+    username:{{ user.username }}
+    <br>
+    tel:{{ user.tel }}
+    <br>
+    balance:{{ user.balance }}
+    <br>
+    credit_level:{{ user.credit_level }}
+    <br>
+    address: {{ user.address }}
+    <h2>Orders</h2>
+    {% for order in orders %}
+        <a href="{% url 'app:order_detail' order.id %}">title: {{ order.title }}</a>
+        <br>
+        status: {{ order.status }}
+        <br>
+        description: {{ order.description }}
+        <br>
+        tags:
+        {% for tag in order.tags %}
+            {{ tag }}
+        {% endfor %}
+        <br>
+        start_price :{{ order.start_price }}
+        <br>
+        highest_price :{{ order.highest_price }}
+        <br>
+        publish_time: {{ order.publish_time }}
+        <br>
+        end_time: {{ order.end_time }}
+        <br>
+        images:
+        {% for image in order.images %}
+            <img src="{{ image }}" alt="image" width="50">
+        {% endfor %}
+        <hr>
+    {% endfor %}
+{% endblock %}
