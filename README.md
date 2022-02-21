@@ -2,7 +2,7 @@
 - 创建虚拟环境`python3 -m venv <path>` 
 - 激活虚拟环境
   - Linux/Mac `source <path>/bin/activate`
-  - Windows `<path>/Scripts/activate` or `<path>\Scripts\Activate.ps1`
+  - Windows `<path>\Scripts\activate.bat` or `<path>\Scripts\Activate.ps1`
 - 安装依赖`pip install -r requirements.txt`
 - 模型修改创建迁移`python manage.py makemigrations`
 - 应用迁移`python manage.py migrate`
