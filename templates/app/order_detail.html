@@ -9,7 +9,7 @@
     <h2>Order Detail</h2>
     title: {{ order.title }}
     <br>
-    seller: {{ order.username }}
+    seller: {{ order.user.username }}
     <br>
     status: {{ order.status }}
     <br>
@@ -17,7 +17,7 @@
     <br>
     tags:
     {% for tag in order.tags %}
-        {{ tag }}
+        {{ tag.name }}
     {% endfor %}
     <br>
     start_price :{{ order.start_price }}
@@ -30,12 +30,12 @@
     <br>
     images:
     {% for image in order.images %}
-        <img src="{{ image }}" alt="image" width="50">
+        <img src="{{ image.img.url }}" alt="image" width="50">
     {% endfor %}
     <hr>
     <h2>Bid</h2>
-    {% if bids %}
-        {% for bid in bids %}
+    {% if order.bids %}
+        {% for bid in order.bids %}
             id: {{ bid.id }}
             <br>
             user: {{ bid.username }}
@@ -50,8 +50,8 @@
     {% endif %}
 
     <h2>Message</h2>
-    {% if messages %}
-        {% for m in messages %}
+    {% if order.messages %}
+        {% for m in order.messages %}
             id: {{ m.id }}
             <br>
             user: {{ m.username }}

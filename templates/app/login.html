@@ -6,10 +6,33 @@
 {% endblock %}
 {% block body_block %}
     <h1>Login</h1>
-    <form id="login_form" method="post" action="{% url 'app:login' %}">
+    {% if form.errors %}
+        <p>Your username and password didn't match. Please try again.</p>
+    {% endif %}
+
+    {% if next %}
+        {% if user.is_authenticated %}
+            <p>Your account doesn't have access to this page. To proceed,
+                please login with an account that has access.</p>
+        {% else %}
+            <p>Please login to see this page.</p>
+        {% endif %}
+    {% endif %}
+
+    <form method="post" action="{% url 'app:login' %}">
         {% csrf_token %}
-        Username <label><input type="text" name="username" value="" size="50"/></label> <br/>
-        Password <label><input type="password" name="password" value="" size="50"/></label> <br/>
-        <input type="submit" value="submit"/>
+        <table>
+            <tr>
+                <td>{{ form.username.label_tag }}</td>
+                <td>{{ form.username }}</td>
+            </tr>
+            <tr>
+                <td>{{ form.password.label_tag }}</td>
+                <td>{{ form.password }}</td>
+            </tr>
+        </table>
+
+        <input type="submit" value="login">
+        <input type="hidden" name="next" value="{{ next }}">
     </form>
 {% endblock %}

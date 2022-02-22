@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.models import User as UserModel
+from django.core.validators import MinValueValidator
 from django.db import models
 
 
@@ -17,12 +18,12 @@ class User(AbstractUser):
 
 
 class Order(models.Model):
-    STATUS = (('U', 'PUBLISH'), ('P', 'PAYING'), ('F', 'FINISH'), ('C', 'CANCEL'),)
+    STATUS = (('U', 'PUBLISH'), ('F', 'FINISH'), ('C', 'CANCEL'),)
     id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=50)
     description = models.CharField(max_length=200)
-    start_price = models.IntegerField()
+    start_price = models.IntegerField(validators=[MinValueValidator(1)])
     publish_time = models.DateTimeField(auto_now=True)
     end_time = models.DateTimeField()
     status = models.CharField(max_length=1, choices=STATUS, default='U')

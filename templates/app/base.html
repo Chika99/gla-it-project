@@ -19,6 +19,7 @@
         {% if user.is_authenticated %}
 
         {% else %}
+            {{ user.id }}
             <li><a href="{% url 'app:register' %}">Sign Up</a></li>
             <li><a href="{% url 'app:login' %}">Login</a></li>
         {% endif %}

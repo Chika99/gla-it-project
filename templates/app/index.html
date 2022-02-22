@@ -9,7 +9,7 @@
     {% if user.is_authenticated %}
         <ul>
             <li>
-                <a href="{% url 'app:my' %}">my</a>
+                <a href="{% url 'app:user' user.id %}">my account</a>
             </li>
             <li>
                 <a href="{% url 'app:add_order' %}">add order</a>
@@ -22,25 +22,25 @@
     <h2>Orders</h2>
     <div class="pagination">
     <span class="step-links">
-        {% if page.has_previous %}
+        {% if page_obj.has_previous %}
             <a href="?page=1&size={{ size }}">&laquo; first</a>
-            <a href="?page={{ page.previous_page_number }}&size={{ size }}">previous</a>
+            <a href="?page={{ page_obj.previous_page_number }}&size={{ size }}">previous</a>
         {% endif %}
 
         <span class="current">
-            Page {{ page.number }} of {{ page.paginator.num_pages }}.
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
         </span>
 
-        {% if page.has_next %}
-            <a href="?page={{ page.next_page_number }}&size={{ size }}">next</a>
-            <a href="?page={{ page.paginator.num_pages }}&size={{ size }}">last &raquo;</a>
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}&size={{ size }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}&size={{ size }}">last &raquo;</a>
         {% endif %}
     </span>
     </div>
-    {% for order in page %}
+    {% for order in object_list %}
         <a href="{% url 'app:order_detail' order.id %}">title: {{ order.title }}</a>
         <br>
-        seller: {{ order.username }}
+        <a href="{% url 'app:user' order.user.id %}">seller: {{ order.user.username }}</a>
         <br>
         status: {{ order.status }}
         <br>
@@ -48,7 +48,7 @@
         <br>
         tags:
         {% for tag in order.tags %}
-            {{ tag }}
+            {{ tag.name }}
         {% endfor %}
         <br>
         start_price :{{ order.start_price }}
@@ -61,7 +61,7 @@
         <br>
         images:
         {% for image in order.images %}
-            <img src="{{ image }}" alt="image" width="50">
+            <img src="{{ image.img.url }}" alt="image" width="50">
         {% endfor %}
         <hr>
     {% endfor %}

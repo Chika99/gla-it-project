@@ -13,17 +13,17 @@
     {% else %}
         {% if reply %}
             reply to {{ reply.username }}: {{ reply.content }}
-            <form id="message_form" method="post" action="{% url 'app:reply_message' order_id reply.id %}"
+            <form id="message-form" method="post" action="{% url 'app:reply_message' order_id reply.id %}"
                   enctype="multipart/form-data">
                 {% csrf_token %}
-                {{ message_form.as_p }}
+                {{ form.as_p }}
                 <input type="submit" name="submit" value="Submit"/>
             </form>
         {% else %}
-            <form id="message_form" method="post" action="{% url 'app:add_message' order_id %}"
+            <form id="message-form" method="post" action="{% url 'app:add_message' order_id %}"
                   enctype="multipart/form-data">
                 {% csrf_token %}
-                {{ message_form.as_p }}
+                {{ form.as_p }}
                 <input type="submit" name="submit" value="Submit"/>
             </form>
         {% endif %}

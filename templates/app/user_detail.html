@@ -6,23 +6,23 @@
 {% endblock %}
 
 {% block body_block %}
-    {% if user.avatar %}
-        avatar:<img src="{{ user.avatar.url }}" alt="user_avatar" width="50">
+    {% if user_info.avatar %}
+        avatar:<img src="{{ user_info.avatar }}" alt="user_info_avatar" width="50">
     {% else %}
         no avatar
     {% endif %}
     <br>
-    username:{{ user.username }}
+    username:{{ user_info.username }}
     <br>
-    tel:{{ user.tel }}
+    tel:{{ user_info.tel }}
     <br>
-    balance:{{ user.balance }}
+    balance:{{ user_info.balance }}
     <br>
-    credit_level:{{ user.credit_level }}
+    credit_level:{{ user_info.credit_level }}
     <br>
-    address: {{ user.address }}
+    address: {{ user_info.address }}
     <h2>Orders</h2>
-    {% for order in orders %}
+    {% for order in user_info.orders %}
         <a href="{% url 'app:order_detail' order.id %}">title: {{ order.title }}</a>
         <br>
         status: {{ order.status }}
@@ -31,7 +31,7 @@
         <br>
         tags:
         {% for tag in order.tags %}
-            {{ tag }}
+            {{ tag.name }}
         {% endfor %}
         <br>
         start_price :{{ order.start_price }}
@@ -44,7 +44,7 @@
         <br>
         images:
         {% for image in order.images %}
-            <img src="{{ image }}" alt="image" width="50">
+            <img src="{{ image.img.url }}" alt="image" width="50">
         {% endfor %}
         <hr>
     {% endfor %}

@@ -16,7 +16,7 @@
     {% else %}
         <form id="bid_form" method="post" action="{% url 'app:add_bid' order_id %}" enctype="multipart/form-data">
             {% csrf_token %}
-            {{ bid_form.as_p }}
+            {{ form.as_p }}
             <input type="submit" name="submit" value="Submit"/>
         </form>
     {% endif %}

@@ -1,9 +1,10 @@
 from django import forms
+from django.contrib.auth.forms import AuthenticationForm
 
 from app.models import User, Order, Bid, Message
 
 
-class UserForm(forms.ModelForm):
+class RegisterForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())
 
     class Meta:
