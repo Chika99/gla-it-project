@@ -14,7 +14,7 @@
         {% if message %}
             {{ message }}
         {% endif %}
-        <form id="order-form" method="post" action="{% url 'app:add_order' %}" enctype="multipart/form-data">
+        <form id="order-form" method="post" action="{% url 'app:add-order' %}" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form.as_p }}
             images: <input type="file" name="images" multiple="multiple">

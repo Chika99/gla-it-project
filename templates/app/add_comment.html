@@ -2,19 +2,20 @@
 {% load static %}
 
 {% block title_block %}
-    Add bid
+    Leave comment
 {% endblock %}
 
 {% block body_block %}
-    <h1>Add order</h1>
-    {% if message %}
-        {{ message }}
-    {% endif %}
+    <h1>Leave comment</h1>
     {% if added %}
         Success
         <a href="{% url 'app:order-detail' order_id %}">Return order detail</a>
     {% else %}
-        <form id="bid_form" method="post" action="{% url 'app:add-bid' order_id %}" enctype="multipart/form-data">
+        {% if message %}
+            {{ message }}
+        {% endif %}
+        <form id="comment-form" method="post" action="{% url 'app:add-comment' order_id %}"
+              enctype="multipart/form-data">
             {% csrf_token %}
             {{ form.as_p }}
             <input type="submit" name="submit" value="Submit"/>

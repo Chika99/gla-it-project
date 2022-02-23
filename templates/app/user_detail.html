@@ -23,7 +23,7 @@
     address: {{ user_info.address }}
     <h2>Orders</h2>
     {% for order in user_info.orders %}
-        <a href="{% url 'app:order_detail' order.id %}">title: {{ order.title }}</a>
+        <a href="{% url 'app:order-detail' order.id %}">title: {{ order.title }}</a>
         <br>
         status: {{ order.status }}
         <br>
@@ -40,12 +40,25 @@
         <br>
         publish_time: {{ order.publish_time }}
         <br>
+        {% if order.bid %}
+            bid_price: {{ order.bid.price }}
+            <br>
+            bid_time: {{ order.bid.time }}
+            <br>
+        {% endif %}
         end_time: {{ order.end_time }}
         <br>
         images:
         {% for image in order.images %}
             <img src="{{ image.img.url }}" alt="image" width="50">
         {% endfor %}
+        {% if order.status == 'F' %}
+            <br>
+            <a href="{% url 'app:user' order.buyer.id %}">buyer: {{ order.buyer.username }}</a>
+            {% if user.id == order.seller.id or user.id == order.buyer.id %}
+                <a href="{% url 'app:add-comment' order.id %}">add comment</a>
+            {% endif %}
+        {% endif %}
         <hr>
     {% endfor %}
 {% endblock %}

@@ -1,6 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.models import User as UserModel
-from django.core.validators import MinValueValidator
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 
 
@@ -20,7 +20,8 @@ class User(AbstractUser):
 class Order(models.Model):
     STATUS = (('U', 'PUBLISH'), ('F', 'FINISH'), ('C', 'CANCEL'),)
     id = models.AutoField(primary_key=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    seller = models.ForeignKey(User, on_delete=models.CASCADE, related_name='seller')
+    buyer = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name='buyer')
     title = models.CharField(max_length=50)
     description = models.CharField(max_length=200)
     start_price = models.IntegerField(validators=[MinValueValidator(1)])
@@ -51,10 +52,11 @@ class Bid(models.Model):
 
 class Comment(models.Model):
     id = models.AutoField(primary_key=True)
-    bid = models.ForeignKey(Bid, on_delete=models.CASCADE)
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    rate = models.IntegerField()
+    rate = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
     content = models.CharField(max_length=200)
+    time = models.DateTimeField(auto_now=True)
 
 
 class Message(models.Model):

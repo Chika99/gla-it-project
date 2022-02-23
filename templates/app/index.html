@@ -12,7 +12,7 @@
                 <a href="{% url 'app:user' user.id %}">my account</a>
             </li>
             <li>
-                <a href="{% url 'app:add_order' %}">add order</a>
+                <a href="{% url 'app:add-order' %}">add order</a>
             </li>
             <li>
                 <a href="{% url 'app:logout' %}">logout</a>
@@ -38,9 +38,9 @@
     </span>
     </div>
     {% for order in object_list %}
-        <a href="{% url 'app:order_detail' order.id %}">title: {{ order.title }}</a>
+        <a href="{% url 'app:order-detail' order.id %}">title: {{ order.title }}</a>
         <br>
-        <a href="{% url 'app:user' order.user.id %}">seller: {{ order.user.username }}</a>
+        <a href="{% url 'app:user' order.seller.id %}">seller: {{ order.seller.username }}</a>
         <br>
         status: {{ order.status }}
         <br>

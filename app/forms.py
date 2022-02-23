@@ -1,7 +1,6 @@
 from django import forms
-from django.contrib.auth.forms import AuthenticationForm
 
-from app.models import User, Order, Bid, Message
+from app.models import User, Order, Bid, Message, Comment
 
 
 class RegisterForm(forms.ModelForm):
@@ -30,3 +29,9 @@ class MessageForm(forms.ModelForm):
     class Meta:
         model = Message
         fields = ['content']
+
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['rate', 'content']

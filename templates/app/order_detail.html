@@ -38,7 +38,7 @@
         {% for bid in order.bids %}
             id: {{ bid.id }}
             <br>
-            user: {{ bid.username }}
+            user: {{ bid.user.username }}
             <br>
             price: {{ bid.price }}
             <br>
@@ -54,7 +54,7 @@
         {% for m in order.messages %}
             id: {{ m.id }}
             <br>
-            user: {{ m.username }}
+            user: {{ m.user.username }}
             <br>
             content: {{ m.content }}
             <br>
@@ -62,14 +62,37 @@
             <br>
             reply: {{ m.reply_id }}
             <br>
-            <a href="{% url 'app:reply_message' order.id m.id %}">reply this</a>
+            <a href="{% url 'app:reply-message' order.id m.id %}">reply this</a>
             <hr>
         {% endfor %}
     {% else %}
         No messages
     {% endif %}
+
+    <h2>Comments</h2>
+    {% if order.comments %}
+        {% for comment in order.comments %}
+            id: {{ comment.id }}
+            <br>
+            user: {{ comment.user.username }}
+            <br>
+            content: {{ comment.content }}
+            <br>
+            time: {{ comment.time }}
+            <br>
+            rate: {{ comment.rate }}
+            <hr>
+        {% endfor %}
+    {% else %}
+        No comments
+    {% endif %}
     <br>
-    <a href="{% url 'app:add_bid' order.id %}">add bid</a>
+    <a href="{% url 'app:add-bid' order.id %}">add bid</a>
     <br>
-    <a href="{% url 'app:add_message' order.id %}">leave message</a>
+    <a href="{% url 'app:add-message' order.id %}">leave message</a>
+    {% if order.status == 'F' %}
+        {% if user.id == order.seller.id or user.id == order.buyer.id %}
+            <a href="{% url 'app:add-comment' order.id %}">add comment</a>
+        {% endif %}
+    {% endif %}
 {% endblock %}

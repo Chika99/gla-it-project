@@ -1,6 +1,9 @@
+import logging
+
 from PIL import Image
 from django.contrib.auth import logout as user_logout
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse
@@ -9,8 +12,8 @@ from django.utils.decorators import method_decorator
 from django.views.generic import FormView, ListView, DetailView
 
 from app.dtos import OrderDto, OrderDetailDto, UserDetailDto
-from app.forms import RegisterForm, OrderForm, BidForm, MessageForm
-from app.models import Tag, OrderImage, Order, Message, Bid, User
+from app.forms import RegisterForm, OrderForm, BidForm, MessageForm, CommentForm
+from app.models import Tag, OrderImage, Order, Message, Bid, User, Comment
 
 
 class RegisterView(FormView):
@@ -116,7 +119,7 @@ class AddOrderView(FormView):
                 'message': 'end time should in future',
             })
         order = form.save(commit=False)
-        order.user = self.request.user
+        order.seller = self.request.user
         order.save()
         for i in self.request.POST.getlist('tags'):
             tag = Tag.objects.get_or_create(name=i)[0]
@@ -144,7 +147,7 @@ class AddOrderView(FormView):
 
 
 # 提供order_id注入get和form上下文, 继承使用
-class OrderRelatedView(FormView):
+class OrderRelatedFormView(FormView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -161,7 +164,7 @@ class OrderRelatedView(FormView):
 
 
 @method_decorator(login_required, name='dispatch')
-class AddBidView(OrderRelatedView):
+class AddBidFormView(OrderRelatedFormView):
     template_name = 'app/add_bid.html'
     form_class = BidForm
 
@@ -173,7 +176,7 @@ class AddBidView(OrderRelatedView):
         def bad_request(message):
             return self.response(form, message, False)
 
-        if order.user.id == self.request.user.id:
+        if order.seller.id == self.request.user.id:
             return bad_request('cannot bid own order')
         if timezone.now() > order.end_time:
             return bad_request('order has finished')
@@ -201,7 +204,7 @@ class AddBidView(OrderRelatedView):
 
 
 @method_decorator(login_required, name='dispatch')
-class AddMessageView(OrderRelatedView):
+class AddMessageFormView(OrderRelatedFormView):
     template_name = 'app/add_message.html'
     form_class = MessageForm
 
@@ -218,7 +221,7 @@ class AddMessageView(OrderRelatedView):
 
 
 @method_decorator(login_required, name='dispatch')
-class ReplyMessageView(OrderRelatedView):
+class ReplyMessageFormView(OrderRelatedFormView):
     template_name = 'app/add_message.html'
     form_class = MessageForm
 
@@ -242,7 +245,69 @@ class ReplyMessageView(OrderRelatedView):
         return self.response(MessageForm(), None, False, reply=reply)
 
 
+@method_decorator(login_required, name='dispatch')
+class CommentFormView(OrderRelatedFormView):
+    template_name = 'app/add_comment.html'
+    form_class = CommentForm
+
+    def form_valid(self, form):
+        order = get_object_or_404(Order, id=self.kwargs.get('order_id'))
+        if not order.status == 'F':
+            return self.response(form, 'cannot comment on unfinished order', False)
+        # request user id
+        r_id = self.request.user.id
+        if r_id == order.seller.id:
+            ex_comment = Comment.objects.filter(Q(order__id=order.id, user__id=r_id) & Q(order__seller_id=r_id))
+        elif self.request.user.id == order.buyer.id:
+            ex_comment = Comment.objects.filter(Q(order__id=order.id, user__id=r_id) & Q(order__buyer_id=r_id))
+        else:
+            return self.response(form, 'cannot comment on unrelated order', False)
+
+        if ex_comment.first():
+            return self.response(form, 'already comment', False)
+        comment = form.save(commit=False)
+        comment.user = self.request.user
+        comment.order = order
+        comment.save()
+        return self.response(None, None, True)
+
+    def form_invalid(self, form):
+        return self.response(CommentForm(), None, False)
+
+
 @login_required
 def logout(request):
     user_logout(request)
     return redirect(reverse('app:index'))
+
+
+def check_order():
+    # 正在出售的订单
+    for order in Order.objects.filter(status='U'):
+        if order.end_time <= timezone.now():
+            logger = logging.getLogger(__name__)
+            user_bid = {
+                user: Bid.objects.filter(user__id=user.id, order__id=order.id).order_by('-price').first()
+                for user in User.objects.filter(bid__order__id=order.id).distinct()
+            }
+            first = False
+            for (user, bid) in sorted(user_bid.items(), key=lambda i: i[1].price, reverse=True):
+                if not first:
+                    order.seller.balance += bid.price
+                    order.seller.save()
+                    order.buyer = user
+                    order.status = 'F'
+                    order.save()
+                    logger.warning(f'seller user:{order.seller.id} get deal:{bid.price}')
+                    first = True
+                else:
+                    user.balance += bid.price
+                    logger.warning(f'user:{user.id} get returned bid:{bid.price}')
+                    user.save()
+            # 没有人买
+            if not first:
+                order.status = 'C'
+                order.save()
+                logger.warning(f'order:{order.id} has cancelled because of no bid')
+            else:
+                logger.warning(f'order:{order.id} has settled')
