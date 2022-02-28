@@ -1,14 +1,9 @@
-import os
-
-import tzlocal
-from apscheduler.schedulers.background import BackgroundScheduler
 from django.contrib.auth.views import LoginView
 from django.urls import path
-from django_apscheduler.jobstores import DjangoJobStore
 
 from app import views
 from app.views import RegisterView, OrderView, OrderDetailView, UserDetailView, AddOrderView, AddBidFormView, \
-    AddMessageFormView, ReplyMessageFormView, check_order, CommentFormView
+    AddMessageFormView, ReplyMessageFormView, CommentFormView
 
 app_name = 'app'
 
@@ -26,16 +21,16 @@ urlpatterns = [
     path('orders/<int:order_id>/comment', CommentFormView.as_view(), name='add-comment')
 ]
 
-env_dist = os.environ
-
-if not env_dist.get('init'):
-    scheduler = BackgroundScheduler(timezone=str(tzlocal.get_localzone()))
-    scheduler.add_jobstore(DjangoJobStore(), 'default')
-
-
-    @scheduler.scheduled_job('interval', id='check_order', seconds=10)
-    def order_job():
-        check_order()
-
-
-    scheduler.start()
+# env_dist = os.environ
+#
+# if not env_dist.get('init'):
+#     scheduler = BackgroundScheduler(timezone=str(tzlocal.get_localzone()))
+#     scheduler.add_jobstore(DjangoJobStore(), 'default')
+#
+#
+#     @scheduler.scheduled_job('interval', id='check_order', seconds=10)
+#     def order_job():
+#         check_order()
+#
+#
+#     scheduler.start()
