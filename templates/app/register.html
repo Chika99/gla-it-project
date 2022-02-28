@@ -6,10 +6,47 @@
 {% endblock %}
 
 {% block body_block %}
+    <script type="text/javascript" src="{% static 'js/jquery-1.12.4.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/register.js' %}"></script>
+    //add javascript of register
+
     <h1>Register</h1>
-    <form id="register-form" method="post" action="{% url 'app:register' %}" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" name="submit" value="Register"/>
-    </form>
+
+    <div class="register_con">
+        <div class="r_con fr">
+            <div class="reg_form clearfix">
+                <form id="register-form" method="post" action="{% url 'app:register' %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <ul>
+                        <li>
+                            <label>Username:</label>
+                            <input type="text" name="user_name" id="user_name">
+                            <span class="error_tip">Warning</span>
+                        </li>
+                        <li>
+                            <label>Password:</label>
+                            <input type="password" name="pwd" id="pwd">
+                            <span class="error_tip">Warning</span>
+                        </li>
+                        <li>
+                            <label>Ensure Password:</label>
+                            <input type="password" name="cpwd" id="cpwd">
+                            <span class="error_tip">Warning</span>
+                        </li>
+                        <li>
+                            <label>Email:</label>
+                            <input type="text" name="email" id="email">
+                            <span class="error_tip">Warning</span>
+                        </li>
+                        <li>
+                            <input type="submit" value="Register" name="submit">
+                        </li>
+                    </ul>
+                    {#        {% csrf_token %}#}
+                    {#        {{ form.as_p }}#}
+                </form>
+            </div>
+        </div>
+    </div>
+
 {% endblock %}
