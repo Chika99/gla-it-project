@@ -18,21 +18,43 @@
             <p>Please login to see this page.</p>
         {% endif %}
     {% endif %}
-
-    <form method="post" action="{% url 'app:login' %}">
-        {% csrf_token %}
-        <table>
-            <tr>
-                <td>{{ form.username.label_tag }}</td>
-                <td>{{ form.username }}</td>
-            </tr>
-            <tr>
-                <td>{{ form.password.label_tag }}</td>
-                <td>{{ form.password }}</td>
-            </tr>
-        </table>
-
-        <input type="submit" value="login">
-        <input type="hidden" name="next" value="{{ next }}">
-    </form>
+<div class="login_form fr">
+				<div class="login_title clearfix">
+					<h1>Login</h1>
+					<a href="#">Register</a>
+				</div>
+				<div class="form_input">
+                    {# 不设置表单action时，提交表单时，会向浏览器地址栏中的地址提交数据 #}
+					<form method="post" action="{% url 'app:login' %}">
+                        {% csrf_token %}
+						<input type="text" name="username" class="name_input" value="{{ username }}" placeholder="username">
+						<div class="user_error">error</div>
+						<input type="password" name="pwd" class="pass_input" placeholder="password">
+						<div class="pwd_error">password error</div>
+						<div class="more_input clearfix">
+							<input type="checkbox" name="remember" {{ checked }}>
+							<label>Remember me</label>
+							<a href="#">Forget password</a>
+						</div>
+						<input type="submit" name="" value="login" class="input_submit">
+                        <input type="hidden" name="next" value="{{ next }}">
+					</form>
+				</div>
+			</div>
+{#    <form method="post" action="{% url 'app:login' %}">#}
+    {#        {% csrf_token %}#}
+    {#        <table>#}
+    {#            <tr>#}
+    {#                <td>{{ form.username.label_tag }}</td>#}
+    {#                <td>{{ form.username }}</td>#}
+    {#            </tr>#}
+    {#            <tr>#}
+    {#                <td>{{ form.password.label_tag }}</td>#}
+    {#                <td>{{ form.password }}</td>#}
+    {#            </tr>#}
+    {#        </table>#}
+    {##}
+    {#        <input type="submit" value="login">#}
+    {#        <input type="hidden" name="next" value="{{ next }}">#}
+    {#    </form>#}
 {% endblock %}
