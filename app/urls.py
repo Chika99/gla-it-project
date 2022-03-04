@@ -18,7 +18,9 @@ urlpatterns = [
     path('orders/<int:order_id>/add_bid/', AddBidFormView.as_view(), name='add-bid'),
     path('orders/<int:order_id>/add_message/', AddMessageFormView.as_view(), name='add-message'),
     path('orders/<int:order_id>/<int:message_id>/reply/', ReplyMessageFormView.as_view(), name='reply-message'),
-    path('orders/<int:order_id>/comment', CommentFormView.as_view(), name='add-comment')
+    path('orders/<int:order_id>/comment', CommentFormView.as_view(), name='add-comment'),
+    path("ordermodify/<id>", views.orderModify, name="orderModify"),
+    path("ordermodifystatus/<id>", views.orderModifyStatus, name="orderModifyStatus")
 ]
 
 # env_dist = os.environ

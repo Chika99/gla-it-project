@@ -4,8 +4,8 @@ from PIL import Image
 from django.contrib.auth import logout as user_logout
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
-from django.http import HttpResponseRedirect
-from django.shortcuts import redirect, get_object_or_404
+from django.http import HttpResponseRedirect, HttpResponse
+from django.shortcuts import redirect, get_object_or_404, render
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.decorators import method_decorator
@@ -89,6 +89,54 @@ class OrderDetailView(DetailView):
         context['order'] = OrderDetailDto(context['order'])
         return context
 
+#修改订单
+@login_required
+def orderModify(request, id):
+    if request.method == 'GET':
+        oData = Order.objects.get(id=id);
+        return render(request, "app/order_modify.html", {"data": oData})
+
+    if request.method == 'POST':
+        data = {}
+        data["title"] = request.POST["title"]
+        data["description"] = request.POST["description"]
+        data["start_price"] = request.POST["start_price"]
+        data["end_time"] = str(request.POST["end_time"])
+        o = Order.objects.get(id=id)
+        o.title = data["title"]
+        o.description = data['description']
+        o.start_price = data["start_price"]
+        o.end_time = data["end_time"]
+        o.save()
+
+        if request.FILES.getlist('images'):
+            o.orderimage_set.all().delete()
+        o.tag_set.all().delete()
+
+        for i in request.POST.getlist('tags'):
+            tag = Tag.objects.get_or_create(name=i)[0]
+            tag.orders.add(o)
+            tag.save()
+
+        for i in request.FILES.getlist('images'):
+            try:
+                img = Image.open(i)
+                img.verify()
+            except:
+                return "1"
+            image = OrderImage(img=i)
+            image.order = o
+            image.save()
+        return HttpResponseRedirect("/")
+
+
+#取消订单
+@login_required
+def orderModifyStatus(request, id):
+    o = Order.objects.get(id=id)
+    o.status = 'C'
+    o.save()
+    return HttpResponse("<script>alert('订单取消成功');history.go(-1)</script>")
 
 class UserDetailView(DetailView):
     template_name = 'app/user_detail.html'
