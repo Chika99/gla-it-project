@@ -7,11 +7,11 @@ from django.db import models
 class User(AbstractUser):
     id = models.AutoField(primary_key=True)
     username = models.CharField(max_length=30, unique=True)
-    avatar = models.ImageField(upload_to='user_avatar', blank=True)
-    tel = models.IntegerField()
-    balance = models.IntegerField()
-    credit_level = models.IntegerField()
-    address = models.CharField(max_length=200)
+    avatar = models.ImageField(upload_to='user_avatar', blank=True, null=True)
+    tel = models.IntegerField(blank=True, null=True)
+    balance = models.IntegerField(default=0)
+    credit_level = models.IntegerField(blank=True, null=True)
+    address = models.CharField(max_length=200, blank=True, null=True)
 
     def __str__(self):
         return self.username
