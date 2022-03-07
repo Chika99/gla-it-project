@@ -7,7 +7,6 @@ Login
 {% block body_block %}
 <link rel="stylesheet" href="{% static 'css/login.css' %}" />
 <script type="text/javascript" src="{% static 'js/login.js' %}"></script>
-<h1>Login</h1>
 
 {% if next %}
 {% if user.is_authenticated %}
@@ -47,13 +46,12 @@ Login
                     <input class="login_btn" type="submit" value="Log in"></input>
                     <div class="register_btn">
                         <span class="register_front_text">or</span>&nbsp;
-                        <span class="register_text" onClick="handleCreate()">
+                        <span class="register_text">
                             <a href="/register/">Create account</a>
                         </span>
                     </div>
                 </div>
                 {# {% csrf_token %}#}
-                {# {{ form.as_p }}#}
             </form>
         </div>
     </div>

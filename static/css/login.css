@@ -1,6 +1,8 @@
 .main_Div {
   height: 100%;
   width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .login_inner {
@@ -51,6 +53,7 @@
   color: #434343;
   font-weight: 600;
   width: 100%;
+  font-size: 14px;
 }
 
 .login_input {

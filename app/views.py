@@ -1,4 +1,5 @@
 import logging
+import time
 
 from PIL import Image
 from django.contrib.auth import logout as user_logout
@@ -26,7 +27,8 @@ class RegisterView(FormView):
         if 'avatar' in self.request.FILES:
             user.avatar = self.request.FILES['avatar']
         user.save()
-        # todo 这里可以跳转成功页面/login页面带信息
+        HttpResponse("<script>alert('Create account successfully!')</script>")
+        time.sleep(2000)
         return HttpResponseRedirect(reverse('app:login'))
 
     def form_invalid(self, form):

@@ -13,12 +13,12 @@ function check_password() {
     $("#password").next().html("Password should between 6-20 characters!");
     $("#password").next().show();
   } else {
-    console.log("in");
     $("#password").next().hide();
   }
 }
-function check_conform_password() {
-  if ($("#password").val() !== $("#confirm_password").val()) {
+function check_confirm_password() {
+  if ($("#password").val() != $("#confirm_password").val()) {
+    console;
     $("#confirm_password")
       .next()
       .html(
@@ -27,6 +27,19 @@ function check_conform_password() {
     $("#confirm_password").next().show();
   } else {
     $("#confirm_password").next().hide();
+  }
+}
+function check_submit() {
+  if (
+    $("#password").val() != $("#confirm_password").val() &&
+    $("#username").val().length >= 5 &&
+    $("#username").val().length <= 20 &&
+    $("#password").val().length >= 6 &&
+    $("#password").val().length <= 20
+  ) {
+    form.submit();
+  } else {
+    return false;
   }
 }
 // $(function () {

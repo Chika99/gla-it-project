@@ -10,8 +10,6 @@ Register
 <link rel="stylesheet" href="{% static 'css/login.css' %}" />
 <script type="text/javascript" src="{% static 'js/register.js' %}"></script>
 
-<h1>Register</h1>
-
 <div class="main_Div">
     <div class="login_inner">
         <div class="login_title">
@@ -38,27 +36,28 @@ Register
                     <div class="input_title">Password</div>
                     <input class="login_input" required="true" placeholder="Required" name="password" id="password"
                         type="password" onchange="check_password()"></input>
+                    <p class="input_warn"></p>
                 </div>
                 <div class="input_out">
                     <div class="input_title">Confirm Password</div>
                     <input class="login_input" required="true" placeholder="Required" name="confirm_password"
                         id="confirm_password" type="password" onchange="check_confirm_password()"></input>
+                    <p class="input_warn"></p>
                 </div>
                 <div class="input_out">
                     <div class="input_title">Telephone</div>
                     <input class="login_input" name="tel" id="tel" oninput="value=value.replace(/[^\d]/g,'')"></input>
                 </div>
                 <div class="btns">
-                    <input class="login_btn" type="submit" value="Sign Up"></input>
+                    <input class="login_btn" type="button" value="Sign Up" onClick="check_submit()"></input>
                     <div class="register_btn">
                         <span class="register_front_text">Had an account?</span>&nbsp;
-                        <span class="register_text" onClick="handleCreate()">
+                        <span class="register_text">
                             <a href="/login/">Log in</a>
                         </span>
                     </div>
                 </div>
                 {# {% csrf_token %}#}
-                {# {{ form.as_p }}#}
             </form>
         </div>
     </div>

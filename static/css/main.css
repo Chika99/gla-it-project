@@ -1,3 +1,8 @@
+* {
+  box-sizing: border-box;
+  border: 0;
+  padding: 0;
+}
 body {
   font-family: "Microsoft Yahei";
   font-size: 12px;
@@ -7,10 +12,152 @@ body {
 html,
 body {
   height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 :root {
   --bg-color: #ff2449;
   --bg-light-color: #ff7675;
   --warn-text: #d14343;
+}
+
+.scrollbar {
+  width: 30px;
+  height: 300px;
+  margin: 0 auto;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  box-shadow: inset 0 0 5px rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.6);
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.navigation {
+  height: 50px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+  margin: 0;
+}
+.main_inner {
+  height: calc(100% - 50px);
+  width: 100%;
+  background-color: #f4f4f4;
+  overflow: hidden;
+}
+
+.icon_img {
+  height: 30px;
+  width: 30px;
+  display: inline-block;
+}
+
+.icon_text {
+  height: 30px;
+  width: auto;
+  text-decoration: dashed;
+  display: inline-flex;
+  font-size: 20px;
+  color: black;
+  font-weight: 600;
+  justify-content: centers;
+  user-select: none;
+}
+.icon {
+  width: auto;
+  height: 100%;
+  margin-left: 20px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.login_icon {
+  width: auto;
+  height: 30px;
+  position: absolute;
+  right: 130px;
+  border: 2px solid #dadada;
+  color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0px 15px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.login_icon:hover {
+  color: var(--bg-color);
+}
+
+.register_icon {
+  width: auto;
+  height: 30px;
+  position: absolute;
+  right: 20px;
+  border: 2px solid #dadada;
+  color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0px 15px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.register_icon:hover {
+  color: var(--bg-color);
+}
+
+.avatar_out {
+  width: 150px;
+  position: absolute;
+  right: 20px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.avatar {
+  height: 30px;
+  width: 30px;
+}
+
+.username_div {
+  width: 110px;
+  padding: 5px;
+  text-align: center;
+  overflow: hidden;
+  text-decoration: underline;
+  font-size: 14px;
+  font-weight: bold;
+}
+.avatar_pic {
+  height: 100%;
+  width: 100%;
 }

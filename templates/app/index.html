@@ -2,29 +2,28 @@
 {% load static %}
 
 {% block title_block %}
-    Index
+Orders
 {% endblock %}
 
 {% block body_block %}
-    {% if user.is_authenticated %}
-        <ul>
-            <li>
-                <a href="{% url 'app:user' user.id %}">my account</a>
-            </li>
-            <li>
-                <a href="{% url 'app:add-order' %}">add order</a>
-            </li>
-            <li>
-                <a href="{% url 'app:logout' %}">logout</a>
-            </li>
-        </ul>
-    {% endif %}
-    <h2>Orders</h2>
-    <div class="pagination">
+{% if user.is_authenticated %}
+<ul>
+    <li>
+        <a href="{% url 'app:user' user.id %}">my account</a>
+    </li>
+    <li>
+        <a href="{% url 'app:add-order' %}">add order</a>
+    </li>
+    <li>
+        <a href="{% url 'app:logout' %}">logout</a>
+    </li>
+</ul>
+{% endif %}
+<div class="pagination">
     <span class="step-links">
         {% if page_obj.has_previous %}
-            <a href="?page=1&size={{ size }}">&laquo; first</a>
-            <a href="?page={{ page_obj.previous_page_number }}&size={{ size }}">previous</a>
+        <a href="?page=1&size={{ size }}">&laquo; first</a>
+        <a href="?page={{ page_obj.previous_page_number }}&size={{ size }}">previous</a>
         {% endif %}
 
         <span class="current">
@@ -32,37 +31,37 @@
         </span>
 
         {% if page_obj.has_next %}
-            <a href="?page={{ page_obj.next_page_number }}&size={{ size }}">next</a>
-            <a href="?page={{ page_obj.paginator.num_pages }}&size={{ size }}">last &raquo;</a>
+        <a href="?page={{ page_obj.next_page_number }}&size={{ size }}">next</a>
+        <a href="?page={{ page_obj.paginator.num_pages }}&size={{ size }}">last &raquo;</a>
         {% endif %}
     </span>
-    </div>
-    {% for order in object_list %}
-        <a href="{% url 'app:order-detail' order.id %}">title: {{ order.title }}</a>
-        <br>
-        <a href="{% url 'app:user' order.seller.id %}">seller: {{ order.seller.username }}</a>
-        <br>
-        status: {{ order.status }}
-        <br>
-        description: {{ order.description }}
-        <br>
-        tags:
-        {% for tag in order.tags %}
-            {{ tag.name }}
-        {% endfor %}
-        <br>
-        start_price :{{ order.start_price }}
-        <br>
-        highest_price :{{ order.highest_price }}
-        <br>
-        publish_time: {{ order.publish_time }}
-        <br>
-        end_time: {{ order.end_time }}
-        <br>
-        images:
-        {% for image in order.images %}
-            <img src="{{ image.img.url }}" alt="image" width="50">
-        {% endfor %}
-        <hr>
-    {% endfor %}
+</div>
+{% for order in object_list %}
+<a href="{% url 'app:order-detail' order.id %}">title: {{ order.title }}</a>
+<br>
+<a href="{% url 'app:user' order.seller.id %}">seller: {{ order.seller.username }}</a>
+<br>
+status: {{ order.status }}
+<br>
+description: {{ order.description }}
+<br>
+tags:
+{% for tag in order.tags %}
+{{ tag.name }}
+{% endfor %}
+<br>
+start_price :{{ order.start_price }}
+<br>
+highest_price :{{ order.highest_price }}
+<br>
+publish_time: {{ order.publish_time }}
+<br>
+end_time: {{ order.end_time }}
+<br>
+images:
+{% for image in order.images %}
+<img src="{{ image.img.url }}" alt="image" width="50">
+{% endfor %}
+<hr>
+{% endfor %}
 {% endblock %}

@@ -10,6 +10,7 @@
         {% endblock %}
     </title>
     <link rel="stylesheet" href="{% static 'css/main.css' %}" />
+    <link rel="icon" href="{% static 'image/auction.svg' %}" />
     <!--[if lt IE 9]>
     <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
@@ -17,10 +18,34 @@
 </head>
 
 <body>
-    <div>
+    <div class="navigation">
+        <a class="icon" href="{% url 'app:index' %}">
+            <img src="{% static 'image/auction.svg' %}" alt="icon svg" class="icon_img" />
+            <i class="icon_text">Aucenter</i>
+        </a>
+        {% if user.is_authenticated %}
+        {% if user.avatar %}
+        <img src="{{ user.avatar }}" alt="user_avatar" width="50">
+        {% else %}
+        <a class="avatar_out" href="{% url 'app:user' user.id %}">
+            <div class="avatar">
+                <img src="{% static 'image/avatar_default.svg' %}" alt="user_default_avatar" class="avatar_pic">
+            </div>
+            <div class="username_div">
+                {{ user.username }}
+            </div>
+        </a>
+        {% endif %}
+        {% else %}
+        <a class="login_icon" href="{% url 'app:login' %}">Log in</a>
+        <a class="register_icon" href="{% url 'app:register' %}">Register</a>
+        {% endif %}
+    </div>
+    <!-- body block except navigation bar -->
+    <div class="main_inner">
         {% block body_block %} {% endblock %}
     </div>
-    <hr />
+    <!-- <hr />
     <div>
         <ul>
             {% if user.is_authenticated %}
@@ -32,7 +57,7 @@
             {% endif %}
             <li><a href="{% url 'app:index' %}">Index</a></li>
         </ul>
-    </div>
+    </div> -->
 </body>
 
 </html>
