@@ -2,59 +2,76 @@
 {% load static %}
 
 {% block title_block %}
-    Login
+Login
 {% endblock %}
 {% block body_block %}
-    <h1>Login</h1>
-    {% if form.errors %}
-        <p>Your username and password didn't match. Please try again.</p>
-    {% endif %}
+<link rel="stylesheet" href="{% static 'css/login.css' %}" />
+<script type="text/javascript" src="{% static 'js/login.js' %}"></script>
+<h1>Login</h1>
 
-    {% if next %}
-        {% if user.is_authenticated %}
-            <p>Your account doesn't have access to this page. To proceed,
-                please login with an account that has access.</p>
-        {% else %}
-            <p>Please login to see this page.</p>
-        {% endif %}
-    {% endif %}
-<div class="login_form fr">
-				<div class="login_title clearfix">
-					<h1>Login</h1>
-					<a href="#">Register</a>
-				</div>
-				<div class="form_input">
-                    {# 不设置表单action时，提交表单时，会向浏览器地址栏中的地址提交数据 #}
-					<form method="post" action="{% url 'app:login' %}">
-                        {% csrf_token %}
-						<input type="text" name="username" class="name_input" value="{{ username }}" placeholder="username">
-						<div class="user_error">error</div>
-						<input type="password" name="pwd" class="pass_input" placeholder="password">
-						<div class="pwd_error">password error</div>
-						<div class="more_input clearfix">
-							<input type="checkbox" name="remember" {{ checked }}>
-							<label>Remember me</label>
-							<a href="#">Forget password</a>
-						</div>
-						<input type="submit" name="" value="login" class="input_submit">
-                        <input type="hidden" name="next" value="{{ next }}">
-					</form>
-				</div>
-			</div>
-{#    <form method="post" action="{% url 'app:login' %}">#}
-    {#        {% csrf_token %}#}
-    {#        <table>#}
-    {#            <tr>#}
-    {#                <td>{{ form.username.label_tag }}</td>#}
-    {#                <td>{{ form.username }}</td>#}
-    {#            </tr>#}
-    {#            <tr>#}
-    {#                <td>{{ form.password.label_tag }}</td>#}
-    {#                <td>{{ form.password }}</td>#}
-    {#            </tr>#}
-    {#        </table>#}
+{% if next %}
+{% if user.is_authenticated %}
+<p>Your account doesn't have access to this page. To proceed,
+    please login with an account that has access.</p>
+{% else %}
+<p>Please login to see this page.</p>
+{% endif %}
+{% endif %}
+<div class="main_Div">
+    <div class="login_inner">
+        <div class="login_title">
+            <h2>Log in to your account</h2>
+        </div>
+        <div class=" login_table">
+            {% if form.errors %}
+            <div class="errors">
+                Errors:
+                {% for value in form.errors.values %}
+                {{ value }}
+                {% endfor %}
+            </div>
+            {% endif %}
+            <form id="login_form" method="post" action="{% url 'app:login' %}">
+                {%csrf_token%}
+                <div class="input_out">
+                    <div class="input_title">Username or email</div>
+                    <input class="login_input" autoFocus required="true" placeholder="Required" name="username"
+                        id="username"></input>
+                </div>
+                <div class="input_out">
+                    <div class="input_title">Password</div>
+                    <input class="login_input" required="true" placeholder="Required" name="password" id="password"
+                        type="password"></input>
+                </div>
+                <div class="btns">
+                    <input class="login_btn" type="submit" value="Log in"></input>
+                    <div class="register_btn">
+                        <span class="register_front_text">or</span>&nbsp;
+                        <span class="register_text" onClick="handleCreate()">
+                            <a href="/register/">Create account</a>
+                        </span>
+                    </div>
+                </div>
+                {# {% csrf_token %}#}
+                {# {{ form.as_p }}#}
+            </form>
+        </div>
+    </div>
+</div>
+{# <form method="post" action="{% url 'app:login' %}">#}
+    {# {% csrf_token %}#}
+    {# <table>#}
+        {# <tr>#}
+            {# <td>{{ form.username.label_tag }}</td>#}
+            {# <td>{{ form.username }}</td>#}
+            {# </tr>#}
+        {# <tr>#}
+            {# <td>{{ form.password.label_tag }}</td>#}
+            {# <td>{{ form.password }}</td>#}
+            {# </tr>#}
+        {# </table>#}
     {##}
-    {#        <input type="submit" value="login">#}
-    {#        <input type="hidden" name="next" value="{{ next }}">#}
-    {#    </form>#}
+    {# <input type="submit" value="login">#}
+    {# <input type="hidden" name="next" value="{{ next }}">#}
+    {# </form>#}
 {% endblock %}

@@ -1,0 +1,16 @@
+body {
+  font-family: "Microsoft Yahei";
+  font-size: 12px;
+  color: #666;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+:root {
+  --bg-color: #ff2449;
+  --bg-light-color: #ff7675;
+  --warn-text: #d14343;
+}

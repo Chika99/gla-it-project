@@ -2,51 +2,66 @@
 {% load static %}
 
 {% block title_block %}
-    Register
+Register
 {% endblock %}
 
 {% block body_block %}
-    <script type="text/javascript" src="{% static 'js/jquery-1.12.4.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/register.js' %}"></script>
-    //add javascript of register
+<script type="text/javascript" src="{% static 'js/jquery-1.12.4.min.js' %}"></script>
+<link rel="stylesheet" href="{% static 'css/login.css' %}" />
+<script type="text/javascript" src="{% static 'js/register.js' %}"></script>
 
-    <h1>Register</h1>
+<h1>Register</h1>
 
-    <div class="register_con">
-        <div class="r_con fr">
-            <div class="reg_form clearfix">
-                <form id="register-form" method="post" action="{% url 'app:register' %}" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    <ul>
-                        <li>
-                            <label>Username:</label>
-                            <input type="text" name="user_name" id="user_name">
-                            <span class="error_tip">Warning</span>
-                        </li>
-                        <li>
-                            <label>Password:</label>
-                            <input type="password" name="pwd" id="pwd">
-                            <span class="error_tip">Warning</span>
-                        </li>
-                        <li>
-                            <label>Ensure Password:</label>
-                            <input type="password" name="cpwd" id="cpwd">
-                            <span class="error_tip">Warning</span>
-                        </li>
-                        <li>
-                            <label>Email:</label>
-                            <input type="text" name="email" id="email">
-                            <span class="error_tip">Warning</span>
-                        </li>
-                        <li>
-                            <input type="submit" value="Register" name="submit">
-                        </li>
-                    </ul>
-                    {#        {% csrf_token %}#}
-                    {#        {{ form.as_p }}#}
-                </form>
+<div class="main_Div">
+    <div class="login_inner">
+        <div class="login_title">
+            <h2>Create an account</h2>
+        </div>
+        <div class=" login_table">
+            {% if form.errors %}
+            <div class="errors">
+                Errors:
+                {% for value in form.errors.values %}
+                {{ value }}
+                {% endfor %}
             </div>
+            {% endif %}
+            <form id="register-form" method="post" action="{% url 'app:register' %}" enctype="multipart/form-data">
+                {%csrf_token%}
+                <div class="input_out">
+                    <div class="input_title">Username or email</div>
+                    <input class="login_input" autoFocus required="true" placeholder="Required" name="username"
+                        id="username" onchange="check_username()"></input>
+                    <p class="input_warn"></p>
+                </div>
+                <div class="input_out">
+                    <div class="input_title">Password</div>
+                    <input class="login_input" required="true" placeholder="Required" name="password" id="password"
+                        type="password" onchange="check_password()"></input>
+                </div>
+                <div class="input_out">
+                    <div class="input_title">Confirm Password</div>
+                    <input class="login_input" required="true" placeholder="Required" name="confirm_password"
+                        id="confirm_password" type="password" onchange="check_confirm_password()"></input>
+                </div>
+                <div class="input_out">
+                    <div class="input_title">Telephone</div>
+                    <input class="login_input" name="tel" id="tel" oninput="value=value.replace(/[^\d]/g,'')"></input>
+                </div>
+                <div class="btns">
+                    <input class="login_btn" type="submit" value="Sign Up"></input>
+                    <div class="register_btn">
+                        <span class="register_front_text">Had an account?</span>&nbsp;
+                        <span class="register_text" onClick="handleCreate()">
+                            <a href="/login/">Log in</a>
+                        </span>
+                    </div>
+                </div>
+                {# {% csrf_token %}#}
+                {# {{ form.as_p }}#}
+            </form>
         </div>
     </div>
+</div>
 
 {% endblock %}
