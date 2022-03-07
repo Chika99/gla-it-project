@@ -84,6 +84,7 @@
   color: white;
   font-weight: bold;
   margin-right: 10px;
+  cursor: pointer;
 }
 
 .register_front_text {
@@ -112,4 +113,10 @@
   color: var(--warn-text);
   font-size: 14px;
   font-weight: 600;
+}
+
+@media only screen and (max-width: 400px) {
+  .login_inner {
+    margin: 0;
+  }
 }
