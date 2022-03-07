@@ -4,6 +4,8 @@
 <html lang="en-us">
 
 <head>
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>
         {% block title_block %}
         Base title
@@ -23,19 +25,25 @@
             <img src="{% static 'image/auction.svg' %}" alt="icon svg" class="icon_img" />
             <i class="icon_text">Aucenter</i>
         </a>
+        <a class="page_link" id="home_icon" href="{% url 'app:index' %}">
+            Auction Hall
+        </a>
         {% if user.is_authenticated %}
-        {% if user.avatar %}
-        <img src="{{ user.avatar }}" alt="user_avatar" width="50">
-        {% else %}
+        <a class="page_link" href="{% url 'app:add-order' %}">
+            Add new Order
+        </a>
         <a class="avatar_out" href="{% url 'app:user' user.id %}">
             <div class="avatar">
+                {% if user.avatar %}
+                <img src="{{ user.avatar }}" alt="user_avatar" class="avatar_pic">
+                {% else %}
                 <img src="{% static 'image/avatar_default.svg' %}" alt="user_default_avatar" class="avatar_pic">
+                {% endif %}
             </div>
             <div class="username_div">
                 {{ user.username }}
             </div>
         </a>
-        {% endif %}
         {% else %}
         <a class="login_icon" href="{% url 'app:login' %}">Log in</a>
         <a class="register_icon" href="{% url 'app:register' %}">Register</a>

@@ -81,12 +81,33 @@ body {
 .icon {
   width: auto;
   height: 100%;
-  margin-left: 20px;
+  margin: 0 20px;
   display: inline-flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
   text-decoration: none;
+}
+
+.page_link {
+  width: auto;
+  height: 100%;
+  margin: 0 20px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: bold;
+  color: black;
+  box-sizing: border-box;
+  padding: 5px 0;
+}
+
+.page_link:hover {
+  border-bottom: 5px solid var(--bg-color);
+  border-top: 5px solid rgba(0, 0, 0, 0);
 }
 
 .login_icon {
@@ -132,7 +153,7 @@ body {
 }
 
 .avatar_out {
-  width: 150px;
+  max-width: 150px;
   position: absolute;
   right: 20px;
   height: 100%;
@@ -160,4 +181,13 @@ body {
 .avatar_pic {
   height: 100%;
   width: 100%;
+}
+
+@media only screen and (max-width: 600px) {
+  #home_icon {
+    display: none;
+  }
+  .username_div {
+    display: none;
+  }
 }
