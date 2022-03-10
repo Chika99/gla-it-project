@@ -3,6 +3,7 @@
   width: 100%;
   overflow-y: auto;
   overflow-x: hidden;
+  padding: 20px;
 }
 
 .index_inner {
@@ -10,7 +11,7 @@
   border: 1px solid #d0d0d0;
   box-shadow: 0 2px 4px rgb(0 0 0 / 5%);
   border-radius: 3px;
-  margin: 20px auto 20px auto;
+  margin: auto;
   max-width: 1200px;
   display: flex;
   flex-direction: column;
@@ -141,11 +142,35 @@
   margin-bottom: 20px;
 }
 
+@media only screen and (max-width: 1200px) {
+  .order_out {
+    width: calc(25% - 20px);
+  }
+}
+
+@media only screen and (max-width: 1000px) {
+  .order_out {
+    width: calc(33.33% - 20px);
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .order_out {
+    width: calc(49% - 20px);
+  }
+}
+
 @media only screen and (max-width: 400px) {
   .index_inner {
     margin: 0;
   }
   .index_title {
     padding: 0 20px;
+  }
+  .order_out {
+    width: calc(100% - 20px);
+  }
+  .main_Div {
+    padding: 0;
   }
 }

@@ -2,65 +2,79 @@
 {% load static %}
 
 {% block title_block %}
-    Profile
+Profile
 {% endblock %}
 
 {% block body_block %}
-    {% if user_info.avatar %}
-        avatar:<img src="{{ user_info.avatar }}" alt="user_info_avatar" width="50">
-    {% else %}
-        no avatar
-    {% endif %}
-    <br>
-    username:{{ user_info.username }}
-    <br>
-    tel:{{ user_info.tel }}
-    <br>
-    balance:{{ user_info.balance }}
-    <br>
-    credit_level:{{ user_info.credit_level }}
-    <br>
-    address: {{ user_info.address }}
-    <h2>Orders</h2>
-    {% for order in user_info.orders %}
-         <a href="{% url 'app:order-detail' order.id %}">title: {{ order.title }}</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="{% url 'app:orderModify' order.id %}">Modify</a>
-        <br>
-        status: {{ order.status }}
-        <br>
-        description: {{ order.description }}
-        <br>
-        tags:
-        {% for tag in order.tags %}
-            {{ tag.name }}
-        {% endfor %}
-        <br>
-        start_price :{{ order.start_price }}
-        <br>
-        highest_price :{{ order.highest_price }}
-        <br>
-        publish_time: {{ order.publish_time }}
-        <br>
-        {% if order.bid %}
-            bid_price: {{ order.bid.price }}
-            <br>
-            bid_time: {{ order.bid.time }}
-            <br>
-        {% endif %}
-        end_time: {{ order.end_time }}
-        <br>
-        images:
-        {% for image in order.images %}
-            <img src="{{ image.img.url }}" alt="image" width="50">
-        {% endfor %}
-        {% if order.status == 'F' %}
-            <br>
-            <a href="{% url 'app:user' order.buyer.id %}">buyer: {{ order.buyer.username }}</a>
-            {% if user.id == order.seller.id or user.id == order.buyer.id %}
-                <a href="{% url 'app:add-comment' order.id %}">add comment</a>
-            {% endif %}
-        {% endif %}
-        <br>
-        <a href="{% url 'app:orderModifyStatus' order.id %}" style="margin: 10px; ">Cancel Order</a>
-        <hr>
-    {% endfor %}
+{% if user.is_authenticated %}
+<ul>
+    <li>
+        <a href="{% url 'app:user' user.id %}">my account</a>
+    </li>
+    <li>
+        <a href="{% url 'app:add-order' %}">add order</a>
+    </li>
+    <li>
+        <a href="{% url 'app:logout' %}">logout</a>
+    </li>
+</ul>
+{% endif %}
+{% if user_info.avatar %}
+avatar:<img src="{{ user_info.avatar }}" alt="user_info_avatar" width="50">
+{% else %}
+no avatar
+{% endif %}
+<br>
+username:{{ user_info.username }}
+<br>
+tel:{{ user_info.tel }}
+<br>
+balance:{{ user_info.balance }}
+<br>
+credit_level:{{ user_info.credit_level }}
+<br>
+address: {{ user_info.address }}
+<h2>Orders</h2>
+{% for order in user_info.orders %}
+<a href="{% url 'app:order-detail' order.id %}">title: {{ order.title
+    }}</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="{% url 'app:orderModify' order.id %}">Modify</a>
+<br>
+status: {{ order.status }}
+<br>
+description: {{ order.description }}
+<br>
+tags:
+{% for tag in order.tags %}
+{{ tag.name }}
+{% endfor %}
+<br>
+start_price :{{ order.start_price }}
+<br>
+highest_price :{{ order.highest_price }}
+<br>
+publish_time: {{ order.publish_time }}
+<br>
+{% if order.bid %}
+bid_price: {{ order.bid.price }}
+<br>
+bid_time: {{ order.bid.time }}
+<br>
+{% endif %}
+end_time: {{ order.end_time }}
+<br>
+images:
+{% for image in order.images %}
+<img src="{{ image.img.url }}" alt="image" width="50">
+{% endfor %}
+{% if order.status == 'F' %}
+<br>
+<a href="{% url 'app:user' order.buyer.id %}">buyer: {{ order.buyer.username }}</a>
+{% if user.id == order.seller.id or user.id == order.buyer.id %}
+<a href="{% url 'app:add-comment' order.id %}">add comment</a>
+{% endif %}
+{% endif %}
+<br>
+<a href="{% url 'app:orderModifyStatus' order.id %}" style="margin: 10px; ">Cancel Order</a>
+<hr>
+{% endfor %}
 {% endblock %}
