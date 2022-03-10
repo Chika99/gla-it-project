@@ -2,11 +2,12 @@
 {% load static %}
 
 {% block title_block %}
-Orders
+Aucition Hall
 {% endblock %}
 
 {% block body_block %}
-{% if user.is_authenticated %}
+<link rel="stylesheet" href="{% static 'css/index.css' %}" />
+<!-- {% if user.is_authenticated %}
 <ul>
     <li>
         <a href="{% url 'app:user' user.id %}">my account</a>
@@ -18,50 +19,67 @@ Orders
         <a href="{% url 'app:logout' %}">logout</a>
     </li>
 </ul>
-{% endif %}
-<div class="pagination">
-    <span class="step-links">
-        {% if page_obj.has_previous %}
-        <a href="?page=1&size={{ size }}">&laquo; first</a>
-        <a href="?page={{ page_obj.previous_page_number }}&size={{ size }}">previous</a>
-        {% endif %}
+{% endif %} -->
+<div class="main_Div">
+    <div class="index_inner">
+        <div class="index_title">
+            <input class="search_input" autoFocus placeholder="Search for lots" name="search" id="search"></input>
+            <input class="search_btn" type="submit" name="submit" value="Search" />
+        </div>
+        <div class="orders">
+            {% for order in object_list %}
+            <div class="order_out">
+                <a href="{% url 'app:order-detail' order.id %}">
+                    <div class="img_out">
+                        {% for image in order.images %}
+                        <img class="imgs" src="{{ image.img.url }}" alt="image">
+                        {% endfor %}
+                    </div>
+                </a>
+                <a class="order_href" href="{% url 'app:order-detail' order.id %}">
+                    <div class="order_title">{{ order.title }}</div>
+                </a>
+                <div class="order_description">{{ order.description }}</div>
+                <a class="order_href" href="{% url 'app:user' order.seller.id %}">
+                    <div class="order_seller_name">{{ order.seller.username}}</div>
+                </a>
+                <!-- status: {{ order.status }}
+                <br> -->
+                <!-- <br>
+                tags:
+                {% for tag in order.tags %}
+                {{ tag.name }}
+                {% endfor %}
+                <br> -->
+                <div title="Starting price" class="order_start_price">￡{{ order.start_price }}</div>
+                <!-- <br>
+                highest_price :{{ order.highest_price }}
+                <br>
+                publish_time: {{ order.publish_time }}
+                <br>
+                end_time: {{ order.end_time }}
+                <br> -->
+            </div>
+            {% endfor %}
+        </div>
+        <!-- pagination -->
+        <div class="pagination">
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                <a href="?page=1&size={{ size }}">&laquo; first</a>
+                <a href="?page={{ page_obj.previous_page_number }}&size={{ size }}">previous</a>
+                {% endif %}
 
-        <span class="current">
-            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-        </span>
+                <span class="current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
 
-        {% if page_obj.has_next %}
-        <a href="?page={{ page_obj.next_page_number }}&size={{ size }}">next</a>
-        <a href="?page={{ page_obj.paginator.num_pages }}&size={{ size }}">last &raquo;</a>
-        {% endif %}
-    </span>
+                {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}&size={{ size }}">next</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}&size={{ size }}">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+    </div>
 </div>
-{% for order in object_list %}
-<a href="{% url 'app:order-detail' order.id %}">title: {{ order.title }}</a>
-<br>
-<a href="{% url 'app:user' order.seller.id %}">seller: {{ order.seller.username }}</a>
-<br>
-status: {{ order.status }}
-<br>
-description: {{ order.description }}
-<br>
-tags:
-{% for tag in order.tags %}
-{{ tag.name }}
-{% endfor %}
-<br>
-start_price :{{ order.start_price }}
-<br>
-highest_price :{{ order.highest_price }}
-<br>
-publish_time: {{ order.publish_time }}
-<br>
-end_time: {{ order.end_time }}
-<br>
-images:
-{% for image in order.images %}
-<img src="{{ image.img.url }}" alt="image" width="50">
-{% endfor %}
-<hr>
-{% endfor %}
 {% endblock %}

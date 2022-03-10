@@ -119,4 +119,7 @@
   .login_inner {
     margin: 0;
   }
+  .login_title {
+    padding: 0 20px;
+  }
 }
