@@ -23,6 +23,7 @@ class RegisterView(FormView):
 
     def form_valid(self, form):
         user = form.save(commit=False)
+        user.balance = round(user.balance, 2) * 100
         user.set_password(user.password)
         if 'avatar' in self.request.FILES:
             user.avatar = self.request.FILES['avatar']
@@ -91,11 +92,12 @@ class OrderDetailView(DetailView):
         context['order'] = OrderDetailDto(context['order'])
         return context
 
-#修改订单
+
+# 修改订单
 @login_required
 def orderModify(request, id):
     if request.method == 'GET':
-        oData = Order.objects.get(id=id);
+        oData = Order.objects.get(id=id)
         return render(request, "app/order_modify.html", {"data": oData})
 
     if request.method == 'POST':
@@ -132,13 +134,14 @@ def orderModify(request, id):
         return HttpResponseRedirect("/")
 
 
-#取消订单
+# 取消订单
 @login_required
 def orderModifyStatus(request, id):
     o = Order.objects.get(id=id)
     o.status = 'C'
     o.save()
     return HttpResponse("<script>alert('订单取消成功');history.go(-1)</script>")
+
 
 class UserDetailView(DetailView):
     template_name = 'app/user_detail.html'
@@ -168,6 +171,7 @@ class AddOrderView(FormView):
                 'added': False,
                 'message': 'end time should in future',
             })
+        order.start_price = round(order.start_price, 2) * 100
         order = form.save(commit=False)
         order.seller = self.request.user
         order.save()
@@ -221,6 +225,7 @@ class AddBidFormView(OrderRelatedFormView):
     def form_valid(self, form):
         order = get_object_or_404(Order, id=self.kwargs.get('order_id'))
         bid = form.instance
+        bid.price = round(bid, 2) * 100
         balance = self.request.user.balance
 
         def bad_request(message):

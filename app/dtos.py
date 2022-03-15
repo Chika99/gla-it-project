@@ -10,8 +10,8 @@ class OrderDto:
     buyer: User
     title: str
     description: str
-    start_price: int
-    highest_price: int
+    start_price: float
+    highest_price: float
     publish_time: datetime
     end_time: datetime
     status: str
@@ -21,6 +21,7 @@ class OrderDto:
     def __init__(self, order: Order, bid=None):
         for k in order.__dict__.keys():
             setattr(self, k, order.__dict__.get(k))
+        self.start_price = round(self.start_price / 100, 2)
         self.seller = order.seller
         if self.status == 'F':
             self.buyer = order.buyer
@@ -29,6 +30,8 @@ class OrderDto:
         self.images = [img for img in OrderImage.objects.filter(order__id=order.id)]
         b = Bid.objects.filter(order__id=order.id).order_by('-price').first()
         self.highest_price = b.price if b else None
+        if self.highest_price:
+            self.highest_price = round(self.highest_price / 100, 2)
 
 
 class OrderDetailDto(OrderDto):
@@ -48,14 +51,15 @@ class UserDetailDto:
     username: str
     avatar: str
     tel: int
-    balance: int
+    balance: float
     credit_level: int
-    address: int
+    address: str
     orders: list[OrderDto]
 
     def __init__(self, user: User):
         for k in user.__dict__.keys():
             setattr(self, k, user.__dict__.get(k))
+        self.balance = round(self.balance / 100, 2)
         self.avatar = user.avatar.url if user.avatar else None
         # 添加自己的订单
         self.orders = [OrderDto(order) for order in Order.objects.filter(seller_id=user.id)]

@@ -6,7 +6,7 @@ from app.models import User, Order, Bid, Message, Comment
 class RegisterForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())
     tel = forms.IntegerField(required=False)
-    balance = forms.IntegerField(required=False)
+    balance = forms.FloatField(required=False)
     credit_level = forms.IntegerField(required=False)
     address = forms.CharField(required=False)
 
@@ -17,6 +17,7 @@ class RegisterForm(forms.ModelForm):
 
 class OrderForm(forms.ModelForm):
     end_time = forms.DateTimeField(widget=forms.DateTimeInput())
+    start_price = forms.FloatField()
 
     class Meta:
         model = Order
@@ -24,6 +25,8 @@ class OrderForm(forms.ModelForm):
 
 
 class BidForm(forms.ModelForm):
+    price = forms.FloatField()
+
     class Meta:
         model = Bid
         fields = ['price']
