@@ -17,6 +17,9 @@ Profile
     <li>
         <a href="{% url 'app:logout' %}">logout</a>
     </li>
+    <li>
+        <a href="{% url 'app:user_modify' user.id %}"> Edit my Information</a>
+    </li>
 </ul>
 {% endif %}
 {% if user_info.avatar %}
@@ -37,7 +40,7 @@ address: {{ user_info.address }}
 <h2>Orders</h2>
 {% for order in user_info.orders %}
 <a href="{% url 'app:order-detail' order.id %}">title: {{ order.title
-    }}</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="{% url 'app:orderModify' order.id %}">Modify</a>
+}}</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="{% url 'app:orderModify' order.id %}">Modify</a>
 <br>
 status: {{ order.status }}
 <br>

@@ -13,7 +13,7 @@ from django.utils.decorators import method_decorator
 from django.views.generic import FormView, ListView, DetailView
 
 from app.dtos import OrderDto, OrderDetailDto, UserDetailDto
-from app.forms import RegisterForm, OrderForm, BidForm, MessageForm, CommentForm
+from app.forms import RegisterForm, OrderForm, BidForm, MessageForm, CommentForm, UserModifyForm
 from app.models import Tag, OrderImage, Order, Message, Bid, User, Comment
 
 
@@ -23,6 +23,7 @@ class RegisterView(FormView):
 
     def form_valid(self, form):
         user = form.save(commit=False)
+        user.balance = round(user.balance, 2) * 100
         user.set_password(user.password)
         if 'avatar' in self.request.FILES:
             user.avatar = self.request.FILES['avatar']
@@ -91,13 +92,17 @@ class OrderDetailView(DetailView):
         context['order'] = OrderDetailDto(context['order'])
         return context
 
-#修改订单
+
+# Modify Order
 @login_required
 def orderModify(request, id):
+    # If the request method is GET, then render to order_modify.html
     if request.method == 'GET':
-        oData = Order.objects.get(id=id);
+        oData = Order.objects.get(id=id)
         return render(request, "app/order_modify.html", {"data": oData})
 
+    # If the request method is POST, then modify here
+    # Match the corresponding modifications to complete the modification of the order
     if request.method == 'POST':
         data = {}
         data["title"] = request.POST["title"]
@@ -132,13 +137,15 @@ def orderModify(request, id):
         return HttpResponseRedirect("/")
 
 
-#取消订单
+# Cancel the order
 @login_required
 def orderModifyStatus(request, id):
+    # Click the cancel button to modify the decoration of the order to C (i.e., cancel)
     o = Order.objects.get(id=id)
     o.status = 'C'
     o.save()
-    return HttpResponse("<script>alert('订单取消成功');history.go(-1)</script>")
+    return HttpResponse("<script>alert('Order cancelled successfully');history.go(-1)</script>")
+
 
 class UserDetailView(DetailView):
     template_name = 'app/user_detail.html'
@@ -168,6 +175,7 @@ class AddOrderView(FormView):
                 'added': False,
                 'message': 'end time should in future',
             })
+        order.start_price = round(order.start_price, 2) * 100
         order = form.save(commit=False)
         order.seller = self.request.user
         order.save()
@@ -221,6 +229,7 @@ class AddBidFormView(OrderRelatedFormView):
     def form_valid(self, form):
         order = get_object_or_404(Order, id=self.kwargs.get('order_id'))
         bid = form.instance
+        bid.price = round(bid, 2) * 100
         balance = self.request.user.balance
 
         def bad_request(message):
@@ -361,3 +370,23 @@ def check_order():
                 logger.warning(f'order:{order.id} has cancelled because of no bid')
             else:
                 logger.warning(f'order:{order.id} has settled')
+
+def user_modify(request, **kwargs):
+    user = User.objects.get(username=request.user.username)
+
+    if request.method == "POST":
+        user_form = UserModifyForm(request.POST)
+        if user_form.is_valid():
+            user_modify = user_form.cleaned_data
+            # user.avatar = user_modify['avatar']
+            user.username = user_modify['username']
+            user.tel = user_modify['tel']
+            user.address = user_modify['address']
+            # avatar = request.POST['avatar']
+            # user.avatar = avatar
+
+            user.save()
+        return redirect(reverse('app:index'))
+    else:
+        user_form = UserModifyForm(instance=request.user)
+        return render(request, "app/user_modify.html", {"user_form":user_form})
