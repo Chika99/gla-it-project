@@ -21,7 +21,7 @@
             <a class="return_text" href="{% url 'app:index' %}">Return to the homepage.</a>
             {% else %}
             {% if message %}
-            {{ message }}
+            <div class="message">{{ message }}</div>
             {% endif %}
             {% if form.errors %}
             <div class="errors">

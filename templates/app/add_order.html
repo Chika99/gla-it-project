@@ -20,7 +20,7 @@ Add order
             <a class="return_text" href="{% url 'app:index' %}">Return to the homepage.</a>
             {% else %}
             {% if message %}
-            {{ message }}
+            <div class="message">{{ message }}</div>
             {% endif %}
             <form id="order-form" method="post" action="{% url 'app:add-order' %}" enctype="multipart/form-data">
                 {% csrf_token %}

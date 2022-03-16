@@ -6,18 +6,35 @@
 {% endblock %}
 
 {% block body_block %}
-    <h1>Add order</h1>
-    {% if message %}
-        {{ message }}
-    {% endif %}
-    {% if added %}
-        Success
-        <a href="{% url 'app:order-detail' order_id %}">Return order detail</a>
-    {% else %}
-        <form id="bid_form" method="post" action="{% url 'app:add-bid' order_id %}" enctype="multipart/form-data">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <input type="submit" name="submit" value="Submit"/>
-        </form>
-    {% endif %}
+<link rel="stylesheet" href="{% static 'css/add_bid_and_message.css' %}" />
+<div class="main_Div">
+    <div class="add_page_inner">
+        <div class="add_page_title">
+            <h2>Place bid</h2>
+        </div>
+        <div class="add_detail">
+            {% if message %}
+            <div class="message">{{ message }}</div>
+            {% endif %}
+            {% if added %}
+            <span class="sucesss_text">Place success!</span>
+            <a class="return_text" href="{% url 'app:order-detail' order_id %}">Return order detail.</a>
+            {% else %}
+            <form id="bid_form" method="post" action="{% url 'app:add-bid' order_id %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="input_out">
+                    <div class="input_title">Price</div>
+                    <div class="price_out">
+                        <div class="price_icon">£</div>
+                        <input type="number" step="0.01" class="input_bar_short" required="true" name="price"
+                            id="price"></input>
+                    </div>
+                </div>
+                <!-- {{ form.as_p }} -->
+                <input class="submit_btn" type="submit" name="submit" value="Submit"/>
+            </form>
+            {% endif %}
+        </div>
+    </div>
+</div>
 {% endblock %}

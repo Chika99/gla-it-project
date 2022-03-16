@@ -6,13 +6,42 @@
 {% endblock %}
 
 {% block body_block %}
-    <h1>Leave comment</h1>
+<link rel="stylesheet" href="{% static 'css/add_bid_and_message.css' %}" />
+<div class="main_Div">
+    <div class="add_page_inner">
+        <div class="add_page_title">
+            <h2>Leave comment</h2>
+        </div>
+        <div class="add_detail">
+            {% if message %}
+            <div class="message">{{ message }}</div>
+            {% endif %}
+            {% if added %}
+            <span class="sucesss_text">Leave success!</span>
+            <a class="return_text" href="{% url 'app:order-detail' order_id %}">Return order detail.</a>
+            {% else %}
+            <form id="comment-form" method="post" action="{% url 'app:add-comment' order_id %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="input_out">
+                    <div class="input_title">Content</div>
+                    <div class="price_out">
+                        <textarea class="textarea_bar" rows="5" required="true" name="content" id="content"></textarea>
+                    </div>
+                </div>
+                <!-- {{ form.as_p }} -->
+                <input class="submit_btn" type="submit" name="submit" value="Submit"/>
+            </form>
+            {% endif %}
+        </div>
+    </div>
+</div>
+    <!-- <h1>Leave comment</h1>
     {% if added %}
         Success
         <a href="{% url 'app:order-detail' order_id %}">Return order detail</a>
     {% else %}
         {% if message %}
-            {{ message }}
+        <div class="message">{{ message }}</div>
         {% endif %}
         <form id="comment-form" method="post" action="{% url 'app:add-comment' order_id %}"
               enctype="multipart/form-data">
@@ -20,5 +49,5 @@
             {{ form.as_p }}
             <input type="submit" name="submit" value="Submit"/>
         </form>
-    {% endif %}
+    {% endif %} -->
 {% endblock %}

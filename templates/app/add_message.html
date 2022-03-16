@@ -6,7 +6,52 @@ Leave message
 {% endblock %}
 
 {% block body_block %}
-<h1>Leave message</h1>
+<link rel="stylesheet" href="{% static 'css/add_bid_and_message.css' %}" />
+<div class="main_Div">
+    <div class="add_page_inner">
+        <div class="add_page_title">
+            <h2>Leave message</h2>
+        </div>
+        <div class="add_detail">
+            {% if message %}
+            <div class="message">{{ message }}</div>
+            {% endif %}
+            {% if added %}
+            <span class="sucesss_text">Leave success!</span>
+            <a class="return_text" href="{% url 'app:order-detail' order_id %}">Return order detail.</a>
+            {% else %}
+            {% if reply %}
+            <div class="reply_messge">{{ reply.user }}:&nbsp;{{ reply.content }}</div>
+            <div class="message">Reply to {{ reply.user }}:</div>
+            <form id="message-form" method="post" action="{% url 'app:reply-message' order_id reply.id %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="input_out">
+                    <div class="input_title">Message</div>
+                    <div class="price_out">
+                        <textarea class="textarea_bar" rows="5" required="true" name="content" id="content"></textarea>
+                    </div>
+                </div>
+                <!-- {{ form.as_p }} -->
+                <input class="submit_btn" type="submit" name="submit" value="Submit"/>
+            </form>
+            {% else %}
+            <form id="message-form" method="post" action="{% url 'app:add-message' order_id %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="input_out">
+                    <div class="input_title">Message</div>
+                    <div class="price_out">
+                        <textarea class="textarea_bar" rows="5" required="true" name="content" id="content"></textarea>
+                    </div>
+                </div>
+                <!-- {{ form.as_p }} -->
+                <input class="submit_btn" type="submit" name="submit" value="Submit"/>
+            </form>
+            {% endif %}
+            {% endif %}
+        </div>
+    </div>
+</div>
+<!-- <h1>Leave message</h1>
 {% if added %}
 Success
 <a href="{% url 'app:order-detail' order_id %}">Return order detail</a>
@@ -27,5 +72,5 @@ reply to {{ reply.username }}: {{ reply.content }}
 </form>
 <div onclick="rely={}">1111</div>
 {% endif %}
-{% endif %}
+{% endif %} -->
 {% endblock %}

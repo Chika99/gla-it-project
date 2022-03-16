@@ -1,22 +1,13 @@
-.login_inner {
+.add_page_inner {
   background: white;
   border: 1px solid #d0d0d0;
   box-shadow: 0 2px 4px rgb(0 0 0 / 5%);
   border-radius: 3px;
   margin: auto;
-  max-width: 500px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  max-width: 800px;
 }
 
-.title_image {
-  height: 280px;
-  width: 700px;
-  margin-top: 45px;
-}
-
-.login_title {
+.add_page_title {
   border-bottom: 1px solid;
   border-color: #dadada;
   height: 80px;
@@ -30,7 +21,7 @@
   box-sizing: border-box;
 }
 
-.login_table {
+.add_detail {
   width: 100%;
   padding: 40px;
   box-sizing: border-box;
@@ -49,25 +40,49 @@
   font-size: 14px;
 }
 
-.login_input {
+.input_bar_short {
   box-sizing: border-box;
   font-size: 14px;
   margin: 5px 0 5px;
   padding-left: 8px;
-  width: 100%;
+  width: 200px;
   height: 36px;
   color: #222;
   outline: none;
   border: 2px solid #cdcdcd;
 }
 
-.btns {
+.price_icon {
+  width: auto;
+  height: 36px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  font-weight: bold;
+  margin: 5px;
+}
+
+.price_out {
+  width: auto;
+  height: auto;
   display: flex;
   justify-content: flex-start;
   align-items: center;
 }
 
-.login_btn {
+.textarea_bar {
+  box-sizing: border-box;
+  font-size: 14px;
+  margin: 5px 0 5px;
+  padding: 8px;
+  width: 100%;
+  color: #222;
+  outline: none;
+  border: 2px solid #cdcdcd;
+}
+
+.submit_btn {
   background: var(--bg-color);
   height: 35px;
   width: auto;
@@ -81,39 +96,26 @@
   padding: 10px;
 }
 
-.register_front_text {
-  font-size: 12px;
-  color: #858585;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.register_text {
-  text-decoration: underline;
-  cursor: pointer;
-  font-size: 12px;
-}
-
-.errors {
-  width: 100%;
-  color: var(--warn-text);
-  font-size: 16px;
-  margin-bottom: 20px;
-}
-
-.input_warn {
-  width: 100%;
-  color: var(--warn-text);
-  font-size: 14px;
-  font-weight: 600;
+.reply_messge{
+    height: auto;
+    width: 100%;
+    background-color: #f5f5f5;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 18px;
+    margin-bottom: 20px;
 }
 
 @media only screen and (max-width: 400px) {
-  .login_inner {
+  .add_page_inner {
     margin: 0;
   }
-  .login_title {
+
+  .add_page_title {
     padding: 0 20px;
+  }
+
+  .add_detail {
+    padding: 10px;
   }
 }
