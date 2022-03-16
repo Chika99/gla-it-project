@@ -46,4 +46,4 @@ class CommentForm(forms.ModelForm):
 class UserModifyForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ('username', 'tel', 'address')
+        fields = ['username', 'tel', 'balance', 'address']
