@@ -43,8 +43,6 @@ Profile
                 <div class="address">{{ user_info.address }}</div>
             </div>
             <a class="btns" href="{% url 'app:user_modify' user.id %}"> Edit my Information</a>
-            <br/>
-            <a class="btns" href="{% url 'app:logout' %}">Log out</a>
             <div class="item_title">Orders:</div>
             <div class="orders">
                 {% for order in user_info.orders %}
@@ -70,12 +68,15 @@ Profile
                             {{ order.start_price }}
                             {% endif %}
                         </div>
+                        {% if user.id == order.seller.id %}
                         <a class="modify" href="{% url 'app:orderModify' order.id %}">Modify</a>
                         <a class="modify" href="{% url 'app:orderModifyStatus' order.id %}">Cancel Order</a>
+                        {% endif %}
                     </div>
                 </div>
                 {% endfor %}
             </div>
+            <a class="btns" href="{% url 'app:logout' %}">Log out</a>
         </div>
     </div>
 </div>

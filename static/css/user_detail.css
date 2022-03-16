@@ -72,10 +72,10 @@
 }
 
 .item_title {
-  color: #434343;
-  font-weight: 600;
+  color: var(--text-red);
   width: 100%;
-  font-size: 14px;
+  font-size: 16px;
+  margin: 20px 0;
 }
 
 .orders {
