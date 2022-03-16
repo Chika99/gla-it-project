@@ -6,7 +6,78 @@
 {% endblock %}
 
 {% block body_block %}
-    <h1>order modify</h1>
+
+<link rel="stylesheet" href="{% static 'css/add_order.css' %}" />
+<script type="text/javascript" src="{% static 'js/jquery-1.12.4.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/add_order.js' %}"></script>
+<div class="main_Div">
+    <div class="add_order_inner">
+        <div class="order_page_title">
+            <h2>Order modify</h2>
+        </div>
+        <div class="add_order_table">
+            {% if added %}
+            <span class="sucesss_text">Add success!</span>
+            <a class="return_text" href="{% url 'app:index' %}">Return to the homepage.</a>
+            {% else %}
+            {% if message %}
+            {{ message }}
+            {% endif %}
+            {% if form.errors %}
+            <div class="errors">
+                Errors:
+                {% for value in form.errors.values %}
+                {{ value }}
+                {% endfor %}
+            </div>
+            {% endif %}
+            <form id="order-form" method="post" action="{% url 'app:orderModify' data.id %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                <!-- {{ form.as_p }} -->
+                <div class="input_out">
+                    <div class="input_title">images</div>
+
+                    <div class="images_out" id="images_out">
+                        <input class="input_display" accept="image/*" type="file" multiple="multiple" 
+                            name="images" id="images_input" oninput="handle_change_images(this.files)"></input>
+                        <label for="images_input" id="input_label" class="add_div">
+                            Upload
+                        </label>
+                    </div>
+                </div>
+                <div class="input_out">
+                    <div class="input_title">Title</div>
+                    <input class="input_bar" autoFocus required="true" placeholder="Required" name="title"
+                        id="title" value="{{data.title}}"></input>
+                    <p class="input_warn"></p>
+                </div>
+                <input type="hidden" name="id" value="{{data.id}}">
+                <div class="input_out">
+                    <div class="input_title">Description</div>
+                    <textarea class="textarea_bar" rows="5" name="description" id="description">{{data.description}}</textarea>
+                </div>
+                <div class="input_out">
+                    <div class="input_title">Start price</div>
+                    <div class="price_out">
+                        <div class="price_icon">£</div>
+                        <input type="number" step="0.01" class="input_bar_short" required="true" name="start_price"
+                            id="start_price" value="{{data.start_price}}"></input>
+                    </div>
+                </div>
+                <div class="input_out">
+                    <div class="input_title">End date</div>
+                    <input class="input_bar_short" type="datetime-local" required="true" name="end_time"
+                        id="end_time" value="{{data.end_time}}"></input>
+                </div>
+                <input class="add_btn" type="submit" name="submit" value="Modify order" />
+            </form>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+
+    <!-- <h1>order modify</h1>
         {% if message %}
             {{ message }}
         {% endif %}
@@ -54,5 +125,5 @@
             {% endfor %}
             <br>
             <input type="submit" name="submit" value="Submit"/>
-        </form>
+        </form> -->
 {% endblock %}

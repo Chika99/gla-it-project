@@ -29,7 +29,7 @@ Add order
                     <div class="input_title">images</div>
 
                     <div class="images_out" id="images_out">
-                        <input class="input_display" accept="image/*" type="file" multiple="multiple" required="true"
+                        <input class="input_display" accept="image/*" type="file" multiple="multiple"
                             name="images" id="images_input" oninput="handle_change_images(this.files)"></input>
                         <label for="images_input" id="input_label" class="add_div">
                             Upload
@@ -59,16 +59,6 @@ Add order
                     <input class="input_bar_short" type="datetime-local" required="true" name="end_time"
                         id="end_time"></input>
                 </div>
-                <!-- tags:
-                <label>
-                    <input type="text" name="tags">
-                </label>
-                <label>
-                    <input type="text" name="tags">
-                </label>
-                <label>
-                    <input type="text" name="tags">
-                </label> -->
                 <input class="add_btn" type="submit" name="submit" value="Add order" />
             </form>
             {% endif %}

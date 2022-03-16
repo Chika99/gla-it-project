@@ -124,10 +124,6 @@
   text-decoration: none;
 }
 
-.order_href:hover {
-  text-decoration: underline;
-}
-
 .order_title {
   font-size: 12px;
   font-weight: 400;

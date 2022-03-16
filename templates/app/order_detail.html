@@ -13,6 +13,11 @@
             <h2>Order Detail</h2>
         </div>
         <div class="order_detail">
+            {% if order.images|length == 0 %}
+            <div class="images_div">
+                No image
+            </div>
+            {% endif %}
             {% for image in order.images %}
             <div class="images_div">
                 <img class="detail_images" src="{{ image.img.url }}" alt="image">
@@ -22,6 +27,11 @@
             {% if order.status == "U" %}
             <div class="end_time_out">
                 <div class="auct_label">Auctioning</div>
+                <div class="end_text">End at <span class="end_time">{{ order.end_time }}</span></div>
+            </div>
+            {% elif order.status == "C" %}
+            <div class="time_out">
+                <div class="time_out_label">Canceled</div>
                 <div class="end_text">End at <span class="end_time">{{ order.end_time }}</span></div>
             </div>
             {% else %}
