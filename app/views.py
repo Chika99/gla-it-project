@@ -1,5 +1,4 @@
 import logging
-import time
 
 from PIL import Image
 from django.contrib.auth import logout as user_logout
@@ -28,7 +27,7 @@ class RegisterView(FormView):
         if 'avatar' in self.request.FILES:
             user.avatar = self.request.FILES['avatar']
         user.save()
-        HttpResponse("<script>alert('Create account successfully!')</script>") 
+        HttpResponse("<script>alert('Create account successfully!')</script>")
         # todo
         return HttpResponseRedirect(reverse('app:login'))
 
@@ -43,6 +42,9 @@ class OrderView(ListView):
     page_kwarg = 'page'
 
     def get_queryset(self):
+        # check if there are finished or timeout orders
+        check_order()
+
         query_set = None
 
         tags = self.request.GET.getlist('tags', [])
@@ -85,6 +87,8 @@ class OrderDetailView(DetailView):
     pk_url_kwarg = 'order_id'
 
     def get_queryset(self):
+        # check if there are finished or timeout orders
+        check_order()
         return Order.objects.filter(id=self.kwargs.get(self.pk_url_kwarg))
 
     def get_context_data(self, **kwargs):
@@ -108,32 +112,11 @@ def orderModify(request, id):
         data["title"] = request.POST["title"]
         data["description"] = request.POST["description"]
         data["start_price"] = request.POST["start_price"]
-        data["end_time"] = str(request.POST["end_time"])
         o = Order.objects.get(id=id)
         o.title = data["title"]
         o.description = data['description']
-        o.start_price = data["start_price"]
-        o.end_time = data["end_time"]
+        o.start_price = round(data["start_price"], 2) * 100
         o.save()
-
-        if request.FILES.getlist('images'):
-            o.orderimage_set.all().delete()
-        o.tag_set.all().delete()
-
-        for i in request.POST.getlist('tags'):
-            tag = Tag.objects.get_or_create(name=i)[0]
-            tag.orders.add(o)
-            tag.save()
-
-        for i in request.FILES.getlist('images'):
-            try:
-                img = Image.open(i)
-                img.verify()
-            except:
-                return "1"
-            image = OrderImage(img=i)
-            image.order = o
-            image.save()
         return HttpResponseRedirect("/")
 
 
@@ -229,7 +212,7 @@ class AddBidFormView(OrderRelatedFormView):
     def form_valid(self, form):
         order = get_object_or_404(Order, id=self.kwargs.get('order_id'))
         bid = form.instance
-        bid.price = round(bid, 2) * 100
+        bid.price = round(bid.price, 2) * 100
         balance = self.request.user.balance
 
         def bad_request(message):
@@ -365,32 +348,28 @@ def check_order():
                     user.save()
             # 没有人买
             if not first:
-                order.status = 'C'
+                order.status = 'T'
                 order.save()
                 logger.warning(f'order:{order.id} has cancelled because of no bid')
             else:
                 logger.warning(f'order:{order.id} has settled')
 
+
 def user_modify(request, **kwargs):
     user = User.objects.get(username=request.user.username)
-    # edit_user = request.user
-    # exist_user = User.objects.get(user=edit_user)
-    # user_form = UserModifyForm(instance=exist_user)
 
     if request.method == "POST":
-        # user_form = UserModifyForm(request.POST, instance=exist_user)
         user_form = UserModifyForm(request.POST, instance=user)
         if user_form.is_valid():
             user_modify = user_form.cleaned_data
-            # user.avatar = user_modify['avatar']
-            user.username = user_modify['username']
             user.tel = user_modify['tel']
-            user.balance = user_modify['balance']
+            user.balance = round(user_modify['balance'], 2) * 100
             user.address = user_modify['address']
-            # avatar = request.POST['avatar']
-            # user.avatar = avatar
+            if 'avatar' in request.FILES:
+                user.avatar = request.FILES['avatar']
             user_form.save()
-        return redirect(reverse('app:index'))
+        return redirect(reverse('app:user', kwargs={'user_id': user.id}))
     else:
         user_form = UserModifyForm(instance=request.user)
-        return render(request, "app/user_modify.html", {"user_form":user_form})
+        return render(request, "app/user_modify.html",
+                      {"user_form": user_form, "balance": round(user.balance / 100, 2)})

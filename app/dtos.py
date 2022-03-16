@@ -55,6 +55,7 @@ class UserDetailDto:
     credit_level: int
     address: str
     orders: list[OrderDto]
+    bids: list[OrderDto]
 
     def __init__(self, user: User):
         for k in user.__dict__.keys():
@@ -64,9 +65,9 @@ class UserDetailDto:
         # 添加自己的订单
         self.orders = [OrderDto(order) for order in Order.objects.filter(seller_id=user.id)]
         # 添加自己下注的
-        self.orders.extend([
+        self.bids = [
             OrderDto(order, bid=Bid.objects.filter(order__id=order.id, user__id=user.id).order_by('-price').first())
             for order in Order.objects.filter(bid__user_id=user.id).distinct()
-        ])
+        ]
         # 按照时间排序
         self.orders = sorted(self.orders, key=lambda x: x.bid.time if x.bid else x.publish_time, reverse=True)

@@ -109,7 +109,7 @@
                         <div class="message_username">{{ message.user.username }}</div>
                         <div class="message_content">
                             {% if message.reply_id != null %}
-                            <span class="reply_span">Reply to {{ message.reply_id }}:</span>
+                            <span class="reply_span">Reply to {{ message.reply.user.username }}:</span>
                             <!-- todo -->
                             {% endif %}
                             {{ message.content }}

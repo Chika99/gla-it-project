@@ -46,7 +46,7 @@
                 <div class="input_out">
                     <div class="input_title">Telephone</div>
                     <input class="input_bar" oninput="value=value.replace(/[^\d]/g,'')" name="tel"
-                        id="tel" value="{{user.tel}}"></input>
+                        id="tel" value="{{user.tel|default_if_none:""}}"></input>
                     <p class="input_warn"></p>
                 </div>
                 <div class="input_out">
@@ -54,12 +54,12 @@
                     <div class="price_out">
                         <div class="price_icon">£</div>
                         <input type="number" step="0.01" class="input_bar_short" required="true" name="balance"
-                            id="balance" value="{{user.balance}}"></input>
+                            id="balance" value="{{balance}}"></input>
                     </div>
                 </div>
                 <div class="input_out">
                     <div class="input_title">Address</div>
-                    <textarea class="textarea_bar" rows="5" name="address" id="address">{{user.address}}</textarea>
+                    <textarea class="textarea_bar" rows="5" name="address" id="address">{{user.address|default_if_none:""}}</textarea>
                 </div>
                 <!-- {{ form.as_p }} -->
                 <input class="submit_btn" type="submit" name="submit" value="Change"/>
