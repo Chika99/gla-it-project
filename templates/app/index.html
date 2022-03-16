@@ -7,11 +7,13 @@ Aucition Hall
 
 {% block body_block %}
 <link rel="stylesheet" href="{% static 'css/index.css' %}" />
+<script type="text/javascript" src="{% static 'js/jquery-1.12.4.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/index.js' %}"></script>
 <div class="main_Div">
     <div class="index_inner">
         <div class="index_title">
             <input class="search_input" autoFocus placeholder="Search for lots" name="search" id="search"></input>
-            <input class="search_btn" type="submit" name="submit" value="Search" />
+            <input class="search_btn" type="button" name="submit" value="Search" onclick="handle_search()"/>
         </div>
         <div class="orders">
             {% for order in object_list %}
@@ -43,17 +45,17 @@ Aucition Hall
         <div class="pagination">
             <span class="step-links">
                 {% if page_obj.has_previous %}
-                <a class="page_jump" href="?page=1&size={{ size }}">&laquo; first</a>
-                <a class="page_jump" href="?page={{ page_obj.previous_page_number }}&size={{ size }}">previous</a>
+                <span class="page_jump" onclick="jump_to(-2)">&laquo; first</span>
+                <span class="page_jump" onclick="jump_to(-1)">previous</span>
                 {% endif %}
 
                 <span class="current">
-                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                    Page <span id="page_num">{{ page_obj.number }}</span> of <span id="total_num">{{ page_obj.paginator.num_pages }}</span>
                 </span>
 
                 {% if page_obj.has_next %}
-                <a class="page_jump" href="?page={{ page_obj.next_page_number }}&size={{ size }}">next</a>
-                <a class="page_jump" href="?page={{ page_obj.paginator.num_pages }}&size={{ size }}">last &raquo;</a>
+                <span class="page_jump" onclick="jump_to(1)">next</span>
+                <span class="page_jump" onclick="jump_to(2)">last &raquo;</span>
                 {% endif %}
             </span>
         </div>
