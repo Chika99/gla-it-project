@@ -14,12 +14,15 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
+  min-width: 355px;
 }
 
 :root {
-  --bg-color: #ff2449;
+  /* --bg-color: #ff2449; */
+  --bg-color: #d23030;
   --bg-light-color: #ff7675;
   --warn-text: #d14343;
+  --text-red: #d23030;
 }
 
 .scrollbar {
@@ -183,11 +186,49 @@ body {
   width: 100%;
 }
 
+.main_Div {
+  height: 100%;
+  width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 20px;
+}
+
+.sucesss_text {
+  color: green;
+  font-size: 20px;
+  margin-right: 10px;
+}
+
+.return_text {
+  color: #666;
+  font-size: 14px;
+}
+
+.hint {
+  height: 40px;
+  background-color: rgb(237, 108, 2);
+  width: 100%;
+  display: flex;
+  padding-left: 20px;
+  justify-content: flex-start;
+  align-items: center;
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  height: 48px;
+}
+
 @media only screen and (max-width: 600px) {
   #home_icon {
     display: none;
   }
   .username_div {
     display: none;
+  }
+}
+@media only screen and (max-width: 400px) {
+  .main_Div {
+    padding: 0;
   }
 }

@@ -15,30 +15,28 @@ Aucition Hall
         </div>
         <div class="orders">
             {% for order in object_list %}
-            <div class="order_out">
-                <a href="{% url 'app:order-detail' order.id %}">
-                    <div class="img_out">
-                        {% for image in order.images %}
-                        <img class="imgs" src="{{ image.img.url }}" alt="image">
-                        {% endfor %}
+            <a class="order_out" href="{% url 'app:order-detail' order.id %}">
+                <div class="img_out">
+                    {% for image in order.images %}
+                    {% if forloop.counter == 1 %}
+                    <img class="imgs" src="{{ image.img.url }}" alt="image">
+                    {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="padding_box">
+                    <div class="order_href">
+                        <div class="order_title">{{ order.title }}</div>
                     </div>
-                </a>
-                <a class="order_href" href="{% url 'app:order-detail' order.id %}">
-                    <div class="order_title">{{ order.title }}</div>
-                </a>
-                <div class="order_description">{{ order.description }}</div>
-                <a class="order_href" href="{% url 'app:user' order.seller.id %}">
-                    <div class="order_seller_name">{{ order.seller.username}}</div>
-                </a>
-                <!-- status: {{ order.status }}
-                <br> -->
-                <!-- <br>
-                tags:
-                {% for tag in order.tags %}
-                {{ tag.name }}
-                {% endfor %}
-                <br> -->
-                <div title="Starting price" class="order_start_price">￡{{ order.start_price }}</div>
+                    <!-- <div class="order_description">{{ order.description }}</div> -->
+                    <div class="order_price">
+                        <span class="pound_icon">￡</span>
+                        {% if order.highest_price %}
+                        {{ order.highest_price }}
+                        {% else %}
+                        {{ order.start_price }}
+                        {% endif %}
+                    </div>
+                </div>
                 <!-- <br>
                 highest_price :{{ order.highest_price }}
                 <br>
@@ -46,7 +44,7 @@ Aucition Hall
                 <br>
                 end_time: {{ order.end_time }}
                 <br> -->
-            </div>
+            </a>
             {% endfor %}
         </div>
         <!-- pagination -->

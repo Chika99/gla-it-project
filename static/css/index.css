@@ -1,13 +1,6 @@
-.main_Div {
-  height: 100%;
-  width: 100%;
-  overflow-y: auto;
-  overflow-x: hidden;
-  padding: 20px;
-}
-
 .index_inner {
-  background: white;
+  /* background: #f8f7f7; */
+  background-color: white;
   border: 1px solid #d0d0d0;
   box-shadow: 0 2px 4px rgb(0 0 0 / 5%);
   border-radius: 3px;
@@ -20,10 +13,10 @@
 
 .search_input {
   box-sizing: border-box;
-  font-size: 14px;
+  font-size: 18px;
   margin: 5px 0 5px;
   padding-left: 8px;
-  width: calc(100% - 100px);
+  width: calc(100% - 130px);
   max-width: 520px;
   height: 36px;
   color: #222;
@@ -48,7 +41,7 @@
 .search_btn {
   background: var(--bg-color);
   height: 35px;
-  width: 70px;
+  width: 100px;
   outline: none;
   border-radius: 5px;
   border: none;
@@ -63,17 +56,26 @@
   width: 100%;
   height: auto;
   display: block;
+  overflow: hidden;
+  font-size: 0;
+  /* background-color: #f8f7f7; */
 }
 
 .order_out {
   width: calc(20% - 20px);
   margin: 10px;
+  padding: 0;
   height: auto;
-  /* border: 2px solid #cdcdcd; */
+  border: 0;
   display: inline-block;
   vertical-align: top;
   position: relative;
   text-decoration: none;
+  box-sizing: border-box;
+  overflow: hidden;
+  font-size: 12px;
+  box-shadow: 0 4px 8px 0 rgb(0 0 0 / 8%);
+  background-color: #fff;
 }
 
 .img_out {
@@ -101,22 +103,14 @@
 }
 
 .order_title {
-  font-size: 1.2em;
-  font-weight: bold;
-  color: black;
+  font-size: 12px;
+  font-weight: 400;
+  color: #606060;
   margin-top: 3px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-.order_seller_name {
-  font-size: 1em;
-  color: #858585;
-  margin-top: 5px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  text-decoration: none;
 }
 
 .order_description {
@@ -128,18 +122,26 @@
   text-overflow: ellipsis;
 }
 
-.order_start_price {
-  font-size: 1.2em;
-  color: var(--bg-color);
+.pound_icon {
+  font-size: 16px;
+}
+
+.order_price {
+  font-size: 22px;
+  color: var(--text-red);
   margin-top: 5px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  font-weight: bold;
+  font-weight: normal;
 }
 
 .pagination {
   margin-bottom: 20px;
+}
+
+.padding_box {
+  padding: 10px 20px;
 }
 
 @media only screen and (max-width: 1200px) {
@@ -156,7 +158,7 @@
 
 @media only screen and (max-width: 700px) {
   .order_out {
-    width: calc(49% - 20px);
+    width: calc(50% - 20px);
   }
 }
 
@@ -166,11 +168,5 @@
   }
   .index_title {
     padding: 0 20px;
-  }
-  .order_out {
-    width: calc(100% - 20px);
-  }
-  .main_Div {
-    padding: 0;
   }
 }

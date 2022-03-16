@@ -28,8 +28,8 @@ class RegisterView(FormView):
         if 'avatar' in self.request.FILES:
             user.avatar = self.request.FILES['avatar']
         user.save()
-        HttpResponse("<script>alert('Create account successfully!')</script>")
-        time.sleep(2000)
+        HttpResponse("<script>alert('Create account successfully!')</script>") 
+        # todo
         return HttpResponseRedirect(reverse('app:login'))
 
     def form_invalid(self, form):

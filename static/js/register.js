@@ -31,14 +31,16 @@ function check_confirm_password() {
 }
 function check_submit() {
   if (
-    $("#password").val() != $("#confirm_password").val() &&
+    $("#password").val() == $("#confirm_password").val() &&
     $("#username").val().length >= 5 &&
     $("#username").val().length <= 20 &&
     $("#password").val().length >= 6 &&
     $("#password").val().length <= 20
   ) {
+    var form = document.getElementById("register-form");
     form.submit();
   } else {
+    alert("Error! Please check the input.");
     return false;
   }
 }
