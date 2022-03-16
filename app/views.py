@@ -381,6 +381,7 @@ def user_modify(request, **kwargs):
             # user.avatar = user_modify['avatar']
             user.username = user_modify['username']
             user.tel = user_modify['tel']
+            user.balance = user_modify['balance']
             user.address = user_modify['address']
             # avatar = request.POST['avatar']
             # user.avatar = avatar
