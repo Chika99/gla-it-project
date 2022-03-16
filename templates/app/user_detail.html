@@ -6,7 +6,7 @@ Profile
 {% endblock %}
 
 {% block body_block %}
-{% if user.is_authenticated %}
+<!-- {% if user.is_authenticated %}
 <ul>
     <li>
         <a href="{% url 'app:user' user.id %}">my account</a>
@@ -21,35 +21,71 @@ Profile
         <a href="{% url 'app:user_modify' user.id %}"> Edit my Information</a>
     </li>
 </ul>
-{% endif %}
-{% if user_info.avatar %}
-avatar:<img src="{{ user_info.avatar }}" alt="user_info_avatar" width="50">
-{% else %}
-no avatar
-{% endif %}
-<br>
-username:{{ user_info.username }}
-<br>
-tel:{{ user_info.tel }}
-<br>
-balance:{{ user_info.balance }}
-<br>
-credit_level:{{ user_info.credit_level }}
-<br>
-address: {{ user_info.address }}
-<h2>Orders</h2>
-{% for order in user_info.orders %}
-<a href="{% url 'app:order-detail' order.id %}">title: {{ order.title
-}}</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="{% url 'app:orderModify' order.id %}">Modify</a>
-<br>
-status: {{ order.status }}
+{% endif %} -->
+<link rel="stylesheet" href="{% static 'css/user_detail.css' %}" />
+<div class="main_Div">
+    <div class="user_detail_inner">
+        <div class="user_detail_title">
+            <h2>User Detail</h2>
+        </div>
+        <div class="user_detail">
+            <div class="avatar_div">
+                {% if user.avatar %}
+                <img src="{{ user.avatar }}" alt="user_avatar" class="avatar_pic">
+                {% else %}
+                No avatar
+                {% endif %}
+            </div>
+            <div class="username">{{ user_info.username }}</div>
+            <div class="detail_item">Tel:<span class="number">{{ user_info.tel }}</span></div>
+            <div class="detail_item">Balance:<span class="number">￡{{ user_info.balance|floatformat:2 }}</span></div>
+            <div class="detail_item">Address:
+                <div class="address">{{ user_info.address }}</div>
+            </div>
+            <a class="btns" href="{% url 'app:user_modify' user.id %}"> Edit my Information</a>
+            <br/>
+            <a class="btns" href="{% url 'app:logout' %}">Log out</a>
+            <div class="item_title">Orders:</div>
+            <div class="orders">
+                {% for order in user_info.orders %}
+                <div class="order_out">
+                    <a href="{% url 'app:order-detail' order.id %}">
+                        <div class="img_out">
+                            {% for image in order.images %}
+                            {% if forloop.counter == 1 %}
+                            <img class="imgs" src="{{ image.img.url }}" alt="image">
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                    </a>
+                    <div class="padding_box">
+                        <div class="order_href">
+                            <div class="order_title">{{ order.title }}</div>
+                        </div>
+                        <div class="order_price">
+                            <span class="pound_icon">￡</span>
+                            {% if order.highest_price %}
+                            {{ order.highest_price }}
+                            {% else %}
+                            {{ order.start_price }}
+                            {% endif %}
+                        </div>
+                        <a class="modify" href="{% url 'app:orderModify' order.id %}">Modify</a>
+                        <a class="modify" href="{% url 'app:orderModifyStatus' order.id %}">Cancel Order</a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+<!-- status: {{ order.status }}
 <br>
 description: {{ order.description }}
 <br>
 tags:
-{% for tag in order.tags %}
-{{ tag.name }}
-{% endfor %}
 <br>
 start_price :{{ order.start_price }}
 <br>
@@ -66,9 +102,7 @@ bid_time: {{ order.bid.time }}
 end_time: {{ order.end_time }}
 <br>
 images:
-{% for image in order.images %}
 <img src="{{ image.img.url }}" alt="image" width="50">
-{% endfor %}
 {% if order.status == 'F' %}
 <br>
 <a href="{% url 'app:user' order.buyer.id %}">buyer: {{ order.buyer.username }}</a>
@@ -77,7 +111,5 @@ images:
 {% endif %}
 {% endif %}
 <br>
-<a href="{% url 'app:orderModifyStatus' order.id %}" style="margin: 10px; ">Cancel Order</a>
-<hr>
-{% endfor %}
-{% endblock %}
+
+<hr> -->

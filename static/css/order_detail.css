@@ -5,9 +5,6 @@
   border-radius: 3px;
   margin: auto;
   max-width: 800px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 
 .order_page_title {
@@ -277,13 +274,13 @@
 .bid_btn {
   background: var(--text-red);
   height: 35px;
-  width: 150px;
+  width: auto;
   border-radius: 4px;
   border: none;
   color: white;
   padding: 10px;
   cursor: pointer;
-  display: flex;
+  display: inline-flex;
   justify-content: center;
   align-items: center;
   font-size: 16px;
@@ -336,6 +333,7 @@
 
 .time_and_reply{
   line-height: 16px;
+  margin-bottom: 10px;
 }
 
 .message_time{
