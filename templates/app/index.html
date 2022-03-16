@@ -27,7 +27,6 @@ Aucition Hall
                     <div class="order_href">
                         <div class="order_title">{{ order.title }}</div>
                     </div>
-                    <!-- <div class="order_description">{{ order.description }}</div> -->
                     <div class="order_price">
                         <span class="pound_icon">￡</span>
                         {% if order.highest_price %}
@@ -37,13 +36,6 @@ Aucition Hall
                         {% endif %}
                     </div>
                 </div>
-                <!-- <br>
-                highest_price :{{ order.highest_price }}
-                <br>
-                publish_time: {{ order.publish_time }}
-                <br>
-                end_time: {{ order.end_time }}
-                <br> -->
             </a>
             {% endfor %}
         </div>

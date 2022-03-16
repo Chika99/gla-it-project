@@ -6,15 +6,75 @@
 {% endblock %}
 
 {% block body_block %}
-<div>
+
+<link rel="stylesheet" href="{% static 'css/add_bid_and_message.css' %}" />
+<link rel="stylesheet" href="{% static 'css/add_order.css' %}" />
+<script type="text/javascript" src="{% static 'js/jquery-1.12.4.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/add_order.js' %}"></script>
+<div class="main_Div">
+    <div class="add_page_inner">
+        <div class="add_page_title">
+            <h2>Change Profile</h2>
+        </div>
+        <div class="add_detail">
+            {% if message %}
+            <div class="message">{{ message }}</div>
+            {% endif %}
+            {% if added %}
+            <span class="sucesss_text">Place success!</span>
+            <a class="return_text" href="{% url 'app:order-detail' order_id %}">Return order detail.</a>
+            {% else %}
+            <form id="bid_form" method="post" action="{% url 'app:user_modify' user.id %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="input_out">
+                    <div class="input_title">Avatar</div>
+
+                    <div class="images_out" id="images_out">
+                        <input class="input_display" accept="image/*" type="file"
+                            name="avatar" id="images_input" oninput="handle_change_images(this.files)"></input>
+                        <label for="images_input" id="input_label" class="add_div">
+                            Upload
+                        </label>
+                    </div>
+                </div>
+                <div class="input_out">
+                    <div class="input_title">Username</div>
+                    <input class="input_bar" autoFocus required="true" placeholder="Required" name="username"
+                        id="username" value="{{user.username}}"></input>
+                    <p class="input_warn"></p>
+                </div>
+                <div class="input_out">
+                    <div class="input_title">Telephone</div>
+                    <input class="input_bar" oninput="value=value.replace(/[^\d]/g,'')" name="tel"
+                        id="tel" value="{{user.tel}}"></input>
+                    <p class="input_warn"></p>
+                </div>
+                <div class="input_out">
+                    <div class="input_title">Balance</div>
+                    <div class="price_out">
+                        <div class="price_icon">£</div>
+                        <input type="number" step="0.01" class="input_bar_short" required="true" name="balance"
+                            id="balance" value="{{user.balance}}"></input>
+                    </div>
+                </div>
+                <div class="input_out">
+                    <div class="input_title">Address</div>
+                    <textarea class="textarea_bar" rows="5" name="address" id="address">{{user.address}}</textarea>
+                </div>
+                <!-- {{ form.as_p }} -->
+                <input class="submit_btn" type="submit" name="submit" value="Change"/>
+            </form>
+            {% endif %}
+        </div>
+    </div>
+</div>
+<!-- <div>
     <h1>Edit My Information</h1>
     <div>
         <div>
         <form action="{% url 'app:user_modify' user.id %}" method="POST">
             {% csrf_token %}
             <div>
-                <!-- <div><span>Avatar:</span></div>
-                <div>{{user_form.avatar}}</div> -->
                 
             </div>
             <div>
@@ -41,5 +101,5 @@
         </div>
     </div>
  
-</div>
+</div> -->
 {% endblock %}

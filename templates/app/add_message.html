@@ -20,6 +20,7 @@ Leave message
             <span class="sucesss_text">Leave success!</span>
             <a class="return_text" href="{% url 'app:order-detail' order_id %}">Return order detail.</a>
             {% else %}
+            <!-- if have reply message, will have different elements and form action -->
             {% if reply %}
             <div class="reply_messge">{{ reply.user }}:&nbsp;{{ reply.content }}</div>
             <div class="message">Reply to {{ reply.user }}:</div>
@@ -31,7 +32,6 @@ Leave message
                         <textarea class="textarea_bar" rows="5" required="true" name="content" id="content"></textarea>
                     </div>
                 </div>
-                <!-- {{ form.as_p }} -->
                 <input class="submit_btn" type="submit" name="submit" value="Submit"/>
             </form>
             {% else %}
@@ -43,7 +43,6 @@ Leave message
                         <textarea class="textarea_bar" rows="5" required="true" name="content" id="content"></textarea>
                     </div>
                 </div>
-                <!-- {{ form.as_p }} -->
                 <input class="submit_btn" type="submit" name="submit" value="Submit"/>
             </form>
             {% endif %}

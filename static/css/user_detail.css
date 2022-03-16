@@ -64,6 +64,7 @@
   text-overflow: -o-ellipsis-lastline;
   height: auto;
   margin-top: 10px;
+  color:#666;
 }
 
 .number {
