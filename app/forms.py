@@ -43,7 +43,8 @@ class CommentForm(forms.ModelForm):
         model = Comment
         fields = ['rate', 'content']
 
+
 class UserModifyForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ['username', 'tel', 'balance', 'address']
+        fields = ['tel', 'balance', 'address']

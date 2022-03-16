@@ -26,8 +26,9 @@ class User(AbstractUser):
 
 # Order class
 class Order(models.Model):
-    # Each order has 3 status: U means published, F means finished the bargain, c means cancel the release.
-    STATUS = (('U', 'PUBLISH'), ('F', 'FINISH'), ('C', 'CANCEL'),)
+    # Each order has 3 status:
+    # U means published, F means finished the bargain, C means cancel the release, T means timeout.
+    STATUS = (('U', 'PUBLISH'), ('F', 'FINISH'), ('C', 'CANCEL'), ('T', 'TIMEOUT'))
     # Order id
     id = models.AutoField(primary_key=True)
     seller = models.ForeignKey(User, on_delete=models.CASCADE, related_name='seller')
