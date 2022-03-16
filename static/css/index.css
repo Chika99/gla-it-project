@@ -16,7 +16,7 @@
   font-size: 18px;
   margin: 5px 0 5px;
   padding-left: 8px;
-  width: calc(100% - 100px);
+  width: calc(100% - 130px);
   max-width: 520px;
   height: 36px;
   color: #222;
@@ -41,7 +41,7 @@
 .search_btn {
   background: var(--bg-color);
   height: 35px;
-  width: 70px;
+  width: 100px;
   outline: none;
   border-radius: 5px;
   border: none;

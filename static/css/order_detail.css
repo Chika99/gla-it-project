@@ -234,6 +234,17 @@
   border-bottom: 1px solid rgba(0, 0, 0, 0.12);
 }
 
+.message_record {
+  height: auto;
+  line-height: 25px;
+  padding-left: 10px;
+  width: 100%;
+  color: #666;
+  font-size: 12px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  vertical-align: top;
+}
+
 .bid_username {
   width: 100px;
   margin-right: 20x;
@@ -261,6 +272,82 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.bid_btn {
+  background: var(--text-red);
+  height: 35px;
+  width: 150px;
+  border-radius: 4px;
+  border: none;
+  color: white;
+  padding: 10px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  margin: 20px 0;
+  text-decoration: none;
+}
+.message_avatar{
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 10px 0;
+  vertical-align: top;
+}
+
+.comment_right{
+  width: calc(100% - 40px);
+  height: auto;
+  display: inline-block;
+  vertical-align: top;
+}
+.comment_username{
+  color:#61666d;
+  font-size: 14px;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.message_content{
+  color:black;
+  font-size: 16px;
+  width: 100%;
+  white-space: normal;
+  word-break: break-all;
+  text-overflow: ellipsis;
+  display: -webkit-box; /*box flex*/
+  -webkit-line-clamp: 3; /*3 lines*/
+  -webkit-box-orient: vertical; /*vertical */
+  text-overflow: -o-ellipsis-lastline;
+  height: auto;
+}
+
+.reply_span{
+  color:var(--text-red);
+  font-size: 14px;
+}
+
+.time_and_reply{
+  line-height: 16px;
+}
+
+.message_time{
+  color: #9499a0;
+  font-size: 14px;
+}
+
+.message_reply_btn{
+  color: #9499a0;
+  font-size: 14px;
+  text-decoration: underline;
+  margin-left: 10px;
 }
 
 @media only screen and (max-width: 400px) {
