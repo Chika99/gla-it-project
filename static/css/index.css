@@ -55,6 +55,7 @@
 .orders {
   width: 100%;
   height: auto;
+  min-height: 400px;
   display: block;
   overflow: hidden;
   font-size: 0;
