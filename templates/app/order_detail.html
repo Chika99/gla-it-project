@@ -34,9 +34,14 @@
                 <div class="time_out_label">Canceled</div>
                 <div class="end_text">End at <span class="end_time">{{ order.end_time }}</span></div>
             </div>
-            {% else %}
+            {% elif order.status == "T" %}
             <div class="time_out">
                 <div class="time_out_label">Time out</div>
+                <div class="end_text">End at <span class="end_time">{{ order.end_time }}</span></div>
+            </div>
+            {% else %}
+            <div class="time_out">
+                <div class="time_out_label">Sold</div>
                 <div class="end_text">End at <span class="end_time">{{ order.end_time }}</span></div>
             </div>
             {% endif %}
