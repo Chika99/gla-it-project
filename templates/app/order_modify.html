@@ -34,7 +34,8 @@
             <form id="order-form" method="post" action="{% url 'app:orderModify' data.id %}" enctype="multipart/form-data">
                 {% csrf_token %}
                 <!-- {{ form.as_p }} -->
-                <div class="input_out">
+                <!-- have bug but not able to solve -->
+                <!-- <div class="input_out">
                     <div class="input_title">images</div>
 
                     <div class="images_out" id="images_out">
@@ -44,7 +45,7 @@
                             Upload
                         </label>
                     </div>
-                </div>
+                </div> -->
                 <div class="input_out">
                     <div class="input_title">Title</div>
                     <input class="input_bar" autoFocus required="true" placeholder="Required" name="title"
@@ -64,11 +65,12 @@
                             id="start_price" value="{{data.start_price}}"></input>
                     </div>
                 </div>
-                <div class="input_out">
+                <!-- will cause problem -->
+                <!-- <div class="input_out">
                     <div class="input_title">End date</div>
                     <input class="input_bar_short" type="datetime-local" required="true" name="end_time"
                         id="end_time" value="{{data.end_time}}"></input>
-                </div>
+                </div> -->
                 <input class="add_btn" type="submit" name="submit" value="Modify order" />
             </form>
             {% endif %}
