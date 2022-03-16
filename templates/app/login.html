@@ -8,12 +8,15 @@ Login
 <link rel="stylesheet" href="{% static 'css/login.css' %}" />
 <script type="text/javascript" src="{% static 'js/login.js' %}"></script>
 
+<!-- hint when need login -->
 {% if next %}
 {% if user.is_authenticated %}
-<p>Your account doesn't have access to this page. To proceed,
-    please login with an account that has access.</p>
+<div class="hint">Your account doesn't have access to this page. To proceed, please login with an account that has
+    access.</div>
 {% else %}
-<p>Please login to see this page.</p>
+<div class="hint">
+    Please login to see this page.
+</div>
 {% endif %}
 {% endif %}
 <div class="main_Div">
@@ -56,20 +59,4 @@ Login
         </div>
     </div>
 </div>
-{# <form method="post" action="{% url 'app:login' %}">#}
-    {# {% csrf_token %}#}
-    {# <table>#}
-        {# <tr>#}
-            {# <td>{{ form.username.label_tag }}</td>#}
-            {# <td>{{ form.username }}</td>#}
-            {# </tr>#}
-        {# <tr>#}
-            {# <td>{{ form.password.label_tag }}</td>#}
-            {# <td>{{ form.password }}</td>#}
-            {# </tr>#}
-        {# </table>#}
-    {##}
-    {# <input type="submit" value="login">#}
-    {# <input type="hidden" name="next" value="{{ next }}">#}
-    {# </form>#}
 {% endblock %}

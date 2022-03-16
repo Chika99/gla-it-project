@@ -1,0 +1,287 @@
+.order_detail_inner {
+  background: white;
+  border: 1px solid #d0d0d0;
+  box-shadow: 0 2px 4px rgb(0 0 0 / 5%);
+  border-radius: 3px;
+  margin: auto;
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.order_page_title {
+  border-bottom: 1px solid;
+  border-color: #dadada;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  color: #222;
+  font-size: 14px;
+  width: 100%;
+  padding: 0 40px;
+  box-sizing: border-box;
+}
+
+.order_detail {
+  width: 100%;
+  padding: 40px;
+  box-sizing: border-box;
+}
+.detail_title {
+  color: #434343;
+  font-weight: 600;
+  width: 100%;
+  font-size: 14px;
+}
+
+.title {
+  color: black;
+  font-weight: 600;
+  width: 100%;
+  font-size: 16px;
+  margin: 10px 0;
+  white-space: normal;
+  word-break: break-all;
+  text-overflow: ellipsis;
+  display: -webkit-box; /*box flex*/
+  -webkit-line-clamp: 3; /*3 lines*/
+  -webkit-box-orient: vertical; /*vertical */
+  text-overflow: -o-ellipsis-lastline;
+}
+
+.description {
+  color: #434343;
+  font-weight: 500;
+  width: 100%;
+  font-size: 14px;
+  margin: 10px 0;
+  overflow: hidden;
+  white-space: normal;
+  word-break: break-all;
+  text-overflow: ellipsis;
+  display: -webkit-box; /*box flex*/
+  -webkit-line-clamp: 5; /*3 lines*/
+  -webkit-box-orient: vertical; /*vertical */
+  text-overflow: -o-ellipsis-lastline;
+}
+
+.images_div {
+  width: 200px;
+  height: 200px;
+  display: inline-block;
+  border: 1px solid #cccccc;
+  margin: 10px;
+  vertical-align: top;
+}
+
+.detail_images {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.detail_avatar_out {
+  height: 100%;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  text-decoration: none;
+}
+
+.order_highest_price {
+  font-size: 26px;
+  color: var(--text-red);
+  margin-top: 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: normal;
+}
+
+.order_start_price {
+  font-size: 18px;
+  color: #666;
+  margin-top: 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: normal;
+}
+
+.pound_icon {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.published_time {
+  padding: 0 5px;
+}
+
+.order_username_div {
+  max-width: 200px;
+  padding: 5px;
+  text-align: center;
+  overflow: hidden;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: bold;
+  color: #222;
+}
+
+.end_time_out {
+  height: 60px;
+  width: 100%;
+  background-color: #e03d42;
+}
+
+.time_out {
+  height: 60px;
+  width: 100%;
+  background-color: #7c7c7c;
+}
+
+.time_out_label {
+  width: auto;
+  height: 100%;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #5c5c5c;
+  color: white;
+  font-size: 14px;
+  padding: 10px;
+}
+
+.auct_label {
+  width: auto;
+  height: 100%;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--text-red);
+  color: white;
+  font-size: 14px;
+  padding: 10px;
+}
+
+.end_text {
+  height: 100%;
+  width: auto;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 14px;
+  padding: 10px;
+}
+
+.end_time {
+  text-decoration: underline;
+  font-weight: 400;
+  margin-left: 10px;
+}
+
+.price_label {
+  color: #999;
+  margin-right: 20px;
+  font-size: 14px;
+  min-width: auto;
+}
+
+.bid_out {
+  width: 100%;
+  height: auto;
+  border-radius: 2px;
+  overflow: hidden;
+  box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%),
+    0 1px 5px 0 rgb(0 0 0 / 20%);
+}
+
+.no_bit_title {
+  width: 100%;
+  height: 65px;
+  border-radius: 2px;
+  background-color: #f7f7f7;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  color: #666;
+}
+
+.bit_title {
+  background-color: #d3d3d3;
+  width: 100%;
+  height: 22px;
+  padding-left: 10px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+.bid_record {
+  height: 25px;
+  line-height: 25px;
+  padding-left: 10px;
+  width: 100%;
+  color: #666;
+  font-size: 12px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.bid_username {
+  width: 100px;
+  margin-right: 20x;
+  display: inline-block;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.bid_money {
+  width: 60px;
+  margin-right: 20x;
+  display: inline-block;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.bid_time {
+  width: calc(100% - 210px);
+  display: inline-block;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media only screen and (max-width: 400px) {
+  .order_detail_inner {
+    margin: 0;
+  }
+
+  .order_page_title {
+    padding: 0 20px;
+  }
+
+  .order_detail {
+    padding: 10px;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .auct_label {
+    display: none;
+  }
+  .time_out_label {
+    display: none;
+  }
+}
