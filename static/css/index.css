@@ -133,11 +133,23 @@
 }
 
 .pagination {
-  margin-bottom: 20px;
+  margin: 20px 0;
 }
 
 .padding_box {
   padding: 10px 20px;
+}
+.current{
+  font-size: 16px;
+  color: #666;
+}
+
+.page_jump{
+  font-size: 16px;
+  color:var(--text-red);
+  text-decoration: none;
+  padding: 5px;
+  /* outline: 2px solid var(--text-red); */
 }
 
 @media only screen and (max-width: 1200px) {

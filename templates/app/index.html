@@ -51,17 +51,17 @@ Aucition Hall
         <div class="pagination">
             <span class="step-links">
                 {% if page_obj.has_previous %}
-                <a href="?page=1&size={{ size }}">&laquo; first</a>
-                <a href="?page={{ page_obj.previous_page_number }}&size={{ size }}">previous</a>
+                <a class="page_jump" href="?page=1&size={{ size }}">&laquo; first</a>
+                <a class="page_jump" href="?page={{ page_obj.previous_page_number }}&size={{ size }}">previous</a>
                 {% endif %}
 
                 <span class="current">
-                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
                 </span>
 
                 {% if page_obj.has_next %}
-                <a href="?page={{ page_obj.next_page_number }}&size={{ size }}">next</a>
-                <a href="?page={{ page_obj.paginator.num_pages }}&size={{ size }}">last &raquo;</a>
+                <a class="page_jump" href="?page={{ page_obj.next_page_number }}&size={{ size }}">next</a>
+                <a class="page_jump" href="?page={{ page_obj.paginator.num_pages }}&size={{ size }}">last &raquo;</a>
                 {% endif %}
             </span>
         </div>
