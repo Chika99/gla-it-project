@@ -8,18 +8,31 @@ from app.views import RegisterView, OrderView, OrderDetailView, UserDetailView, 
 app_name = 'app'
 
 urlpatterns = [
+    # Homepage, the orders' view
     path('', OrderView.as_view(), name='index'),
+    # Login
     path('login/', LoginView.as_view(template_name='app/login.html', next_page='app:index'), name='login'),
+    # Logout
     path('logout/', views.logout, name='logout'),
+    # Register
     path('register/', RegisterView.as_view(), name='register'),
+    # User's centre
     path('user/<int:user_id>', UserDetailView.as_view(), name='user'),
+    # Add a new order
     path('add_order/', AddOrderView.as_view(), name='add-order'),
+    # Show the orders' detail
     path('orders/<int:order_id>/', OrderDetailView.as_view(), name='order-detail'),
+    # Add bid
     path('orders/<int:order_id>/add_bid/', AddBidFormView.as_view(), name='add-bid'),
+    # Add new massage
     path('orders/<int:order_id>/add_message/', AddMessageFormView.as_view(), name='add-message'),
+    # Reply massage
     path('orders/<int:order_id>/<int:message_id>/reply/', ReplyMessageFormView.as_view(), name='reply-message'),
+    # Add comments - when received the goods
     path('orders/<int:order_id>/comment', CommentFormView.as_view(), name='add-comment'),
+    # Order modification
     path("ordermodify/<id>", views.orderModify, name="orderModify"),
+    # Cancel order
     path("ordermodifystatus/<id>", views.orderModifyStatus, name="orderModifyStatus")
 ]
 

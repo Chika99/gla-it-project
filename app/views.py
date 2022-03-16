@@ -93,13 +93,16 @@ class OrderDetailView(DetailView):
         return context
 
 
-# 修改订单
+# Modify Order
 @login_required
 def orderModify(request, id):
+    # If the request method is GET, then render to order_modify.html
     if request.method == 'GET':
         oData = Order.objects.get(id=id)
         return render(request, "app/order_modify.html", {"data": oData})
 
+    # If the request method is POST, then modify here
+    # Match the corresponding modifications to complete the modification of the order
     if request.method == 'POST':
         data = {}
         data["title"] = request.POST["title"]
@@ -134,13 +137,14 @@ def orderModify(request, id):
         return HttpResponseRedirect("/")
 
 
-# 取消订单
+# Cancel the order
 @login_required
 def orderModifyStatus(request, id):
+    # Click the cancel button to modify the decoration of the order to C (i.e., cancel)
     o = Order.objects.get(id=id)
     o.status = 'C'
     o.save()
-    return HttpResponse("<script>alert('订单取消成功');history.go(-1)</script>")
+    return HttpResponse("<script>alert('Order cancelled successfully');history.go(-1)</script>")
 
 
 class UserDetailView(DetailView):
