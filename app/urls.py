@@ -33,7 +33,9 @@ urlpatterns = [
     # Order modification
     path("ordermodify/<id>", views.orderModify, name="orderModify"),
     # Cancel order
-    path("ordermodifystatus/<id>", views.orderModifyStatus, name="orderModifyStatus")
+    path("ordermodifystatus/<id>", views.orderModifyStatus, name="orderModifyStatus"),
+    # modify user's information
+    path('user_modify/<int:user_id>', views.user_modify, name='user_modify'),
 ]
 
 # env_dist = os.environ

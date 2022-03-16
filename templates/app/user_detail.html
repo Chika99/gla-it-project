@@ -17,6 +17,9 @@ Profile
     <li>
         <a href="{% url 'app:logout' %}">logout</a>
     </li>
+    <li>
+        <a href="{% url 'app:user_modify' user.id %}"> Edit my Information</a>
+    </li>
 </ul>
 {% endif %}
 {% if user_info.avatar %}

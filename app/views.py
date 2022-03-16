@@ -13,7 +13,7 @@ from django.utils.decorators import method_decorator
 from django.views.generic import FormView, ListView, DetailView
 
 from app.dtos import OrderDto, OrderDetailDto, UserDetailDto
-from app.forms import RegisterForm, OrderForm, BidForm, MessageForm, CommentForm
+from app.forms import RegisterForm, OrderForm, BidForm, MessageForm, CommentForm, UserModifyForm
 from app.models import Tag, OrderImage, Order, Message, Bid, User, Comment
 
 
@@ -370,3 +370,23 @@ def check_order():
                 logger.warning(f'order:{order.id} has cancelled because of no bid')
             else:
                 logger.warning(f'order:{order.id} has settled')
+
+def user_modify(request, **kwargs):
+    user = User.objects.get(username=request.user.username)
+
+    if request.method == "POST":
+        user_form = UserModifyForm(request.POST)
+        if user_form.is_valid():
+            user_modify = user_form.cleaned_data
+            # user.avatar = user_modify['avatar']
+            user.username = user_modify['username']
+            user.tel = user_modify['tel']
+            user.address = user_modify['address']
+            # avatar = request.POST['avatar']
+            # user.avatar = avatar
+
+            user.save()
+        return redirect(reverse('app:index'))
+    else:
+        user_form = UserModifyForm(instance=request.user)
+        return render(request, "app/user_modify.html", {"user_form":user_form})

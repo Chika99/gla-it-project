@@ -1,0 +1,41 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block title_block %}
+    user modify
+{% endblock %}
+
+{% block body_block %}
+<div>
+    <h1>Edit My Information</h1>
+    <div>
+        <div>
+        <form action="{% url 'app:user_modify' user.id %}" method="POST">
+            {% csrf_token %}
+            <div>
+                <!-- <div><span>Avatar:</span></div>
+                <div>{{user_form.avatar}}</div> -->
+                
+            </div>
+            <div>
+                <div><span>Username:</span></div>
+                <div>{{user_form.username}}</div>
+            </div>
+            <div>
+                <div><span>Tel:</span></div>
+                <div>{{user_form.tel}}</div>
+            </div>
+            <div>
+                <div><span>address:</span></div>
+                <div>{{user_form.address}}</div>
+            </div>
+
+            <div>
+                <input type="submit" name="user_modify" value="submit">
+            </div>
+        </form>
+        </div>
+    </div>
+ 
+</div>
+{% endblock %}
