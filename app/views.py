@@ -373,9 +373,13 @@ def check_order():
 
 def user_modify(request, **kwargs):
     user = User.objects.get(username=request.user.username)
+    # edit_user = request.user
+    # exist_user = User.objects.get(user=edit_user)
+    # user_form = UserModifyForm(instance=exist_user)
 
     if request.method == "POST":
-        user_form = UserModifyForm(request.POST)
+        # user_form = UserModifyForm(request.POST, instance=exist_user)
+        user_form = UserModifyForm(request.POST, instance=user)
         if user_form.is_valid():
             user_modify = user_form.cleaned_data
             # user.avatar = user_modify['avatar']
@@ -385,8 +389,7 @@ def user_modify(request, **kwargs):
             user.address = user_modify['address']
             # avatar = request.POST['avatar']
             # user.avatar = avatar
-
-            user.save()
+            user_form.save()
         return redirect(reverse('app:index'))
     else:
         user_form = UserModifyForm(instance=request.user)
