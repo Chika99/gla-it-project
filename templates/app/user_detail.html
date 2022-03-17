@@ -15,8 +15,10 @@
         </div>
         <div class="user_detail">
             <div class="avatar_div">
-                {% if user_info.avatar %}
+                {% if user_info.avatar.url %}
                 <img src="{{ user_info.avatar.url }}" alt="user_avatar" class="avatar_pic">
+                {% elif user_info.avatar %}
+                <img src="{{ user_info.avatar }}" alt="user_avatar" class="avatar_pic">
                 {% else %}
                 No avatar
                 {% endif %}

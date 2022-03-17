@@ -46,3 +46,12 @@ function check_submit() {
     return false;
   }
 }
+
+// user privacy notice
+function show_instruction() {
+  $(".instruction_inner").css("visibility", "visible");
+}
+
+function hide_instruction() {
+  $(".instruction_inner").css("visibility", "hidden");
+}

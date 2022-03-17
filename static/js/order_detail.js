@@ -3,6 +3,5 @@ function show_instruction() {
 }
 
 function hide_instruction() {
-    $(".instruction_inner").css("visibility", "hidden");
-  }
-  
+  $(".instruction_inner").css("visibility", "hidden");
+}

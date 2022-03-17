@@ -109,6 +109,42 @@
   font-weight: 600;
 }
 
+.instructions{
+  display: inline-flex;
+  font-size: 12px;
+  font-weight: lighter;
+  color: #666;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  vertical-align: middle;
+  margin-bottom: 20px;
+}
+
+.instruction_image{
+  height: 20px;
+  width: 20px;
+  margin-right: 10px;
+}
+
+.instruction_inner{
+  box-shadow: 0 0 5px rgb(0 0 0 / 20%);
+  position: absolute;
+  bottom:20px;
+  left: 20px;
+  height: auto;
+  width: 300px;
+  background-color: white;
+  padding: 10px;
+  color: #666;
+  visibility: hidden;
+}
+
+.red_span{
+  color: var(--text-red);
+}
+
 @media only screen and (max-width: 400px) {
   .login_inner {
     margin: 0;

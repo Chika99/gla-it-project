@@ -52,6 +52,15 @@ Register
                     <div class="input_title">Telephone</div>
                     <input class="login_input" name="tel" id="tel" oninput="value=value.replace(/[^\d]/g,'')"></input>
                 </div>
+                <!-- user privacy notice, will decelop later -->
+                <div class="instructions" onmouseenter="show_instruction()" onmouseleave="hide_instruction()">
+                    <img class="instruction_image" src="{% static 'image/notice.svg' %}" alt="instruction image"></img>
+                    Registering means agreeing to our user privacy notice.
+                    <div class="instruction_inner">
+                        <span class="red_span">User privacy notice:</span>
+                        The nature of our website means we often work in partnership with other organisations, however, we will not share your information with any other organisation unless we have your permission first, unless we have a legitimate interest to do so.
+                    </div>
+                </div>
                 <div class="btns">
                     <!-- not use submit type because we need check js function while submit -->
                     <input class="login_btn" type="button" value="Sign Up" onClick="check_submit()"></input>
