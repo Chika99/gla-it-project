@@ -131,8 +131,8 @@
 .instruction_inner{
   box-shadow: 0 0 5px rgb(0 0 0 / 20%);
   position: absolute;
-  bottom:20px;
-  left: 20px;
+  top:-120px;
+  left: 0;
   height: auto;
   width: 300px;
   background-color: white;
