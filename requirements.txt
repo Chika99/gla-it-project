@@ -1,7 +1,7 @@
-APScheduler==3.8.1
+APScheduler==3.9.1
 asgiref==3.5.0
-Django==4.0.2
-django-apscheduler==0.6.0
+Django==4.0.3
+django-apscheduler==0.6.2
 Pillow==9.0.1
 pytz==2021.3
 pytz-deprecation-shim==0.1.0.post0
