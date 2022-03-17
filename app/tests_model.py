@@ -2,7 +2,7 @@
 import datetime
 from django.test import TestCase
 
-from app.models import Order, User
+from app.models import Order, Tag, User
 
 
 class UserTest(TestCase):
@@ -122,6 +122,42 @@ class OrderTest(TestCase):
         #none can be found
         self.assertEqual(len(c), 0)
 
+class TagTest(TestCase):
 
-
+    #set up default database for test
+    def setUp(self):
+        Tag.objects.create(id=0, name="test0")
     
+    #test for creating Tag
+    def test9_CreateTag(self):
+        Tag.objects.create(id=1, name="tag1")
+        a = Tag.objects.get(id=1)
+        self.assertEqual(a.id, 1)
+        self.assertEqual(a.name,"tag1")
+
+    #test for deleting Tag
+    def test10_DeleteTag(self):
+        a = Tag.objects.get(id=0)
+        a.delete()
+        b = Tag.objects.filter(id=0)
+        c = len(b)
+        self.assertEqual(c, 0)
+
+    #test for updating Tag
+    def test11_UpdateTag(self):
+        a = Tag.objects.get(id=0)
+        a.id = 3
+        a.name = "update"
+        a.save()
+        b = Tag.objects.get(id=3)
+        self.assertEqual(a.id, 3)
+        self.assertEqual(a.name,"update")
+
+    #test for finding Tag
+    def test12_FindTag(self):
+        Tag.objects.create(id=1, name="tag1")
+        a = Tag.objects.filter(name__contains="t")
+        self.assertEqual(len(a), 2)
+        b = User.objects.filter(id__contains=123)
+        self.assertEqual(len(b), 0)
+
