@@ -46,8 +46,10 @@ class OrderView(ListView):
         # check if there are finished or timeout orders
         check_order()
 
-        query_set = None
+        # only show on sale order
+        query_set = Order.objects.filter(status='U')
 
+        # deprecated
         tags = self.request.GET.getlist('tags', [])
         for i in tags:
             s = Order.objects.filter(tag__name=i)
@@ -58,11 +60,13 @@ class OrderView(ListView):
             s = Order.objects.filter(title__contains=keywords) | Order.objects.filter(description__contains=keywords)
             query_set = query_set & s if query_set else s
 
+        # deprecated
         ref = {
             'publish_time': 'publish_time',
             'end_time': 'end_time',
         }
 
+        # deprecated
         # only allow one sort
         for i in ref:
             if i in self.request.GET.dict():
@@ -104,6 +108,7 @@ def orderModify(request, id):
     # If the request method is GET, then render to order_modify.html
     if request.method == 'GET':
         oData = Order.objects.get(id=id)
+        oData.start_price = round(oData.start_price / 100, 2)
         return render(request, "app/order_modify.html", {"data": oData})
 
     # If the request method is POST, then modify here
@@ -116,9 +121,9 @@ def orderModify(request, id):
         o = Order.objects.get(id=id)
         o.title = data["title"]
         o.description = data['description']
-        o.start_price = round(float(data["start_price"]), 2) * 100
+        o.start_price = int(round(float(data["start_price"]), 2) * 100)
         o.save()
-        return HttpResponseRedirect("/")
+        return redirect(reverse('app:user', kwargs={'user_id': request.user.id}))
 
 
 # Cancel the order
@@ -286,6 +291,7 @@ class ReplyMessageFormView(OrderRelatedFormView):
     def form_invalid(self, form):
         reply = get_object_or_404(Message, id=self.kwargs.get('message_id'))
         return self.response(MessageForm(), None, False, reply=reply)
+
 
 # add comment function but not used now because of cridit level
 @method_decorator(login_required, name='dispatch')
