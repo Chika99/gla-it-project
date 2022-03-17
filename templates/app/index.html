@@ -13,6 +13,7 @@ Aucition Hall
     <div class="index_inner">
         <div class="index_title">
             <input class="search_input" autoFocus placeholder="Search for lots" name="search" id="search"></input>
+            <!-- add ?keywords=... after url and not conflict with page -->
             <input class="search_btn" type="button" name="submit" value="Search" onclick="handle_search()"/>
         </div>
         <div class="orders">
@@ -45,6 +46,7 @@ Aucition Hall
         <div class="pagination">
             <span class="step-links">
                 {% if page_obj.has_previous %}
+                <!-- jump to to resolve page change. not use href because we also have another param called keywords after the url -->
                 <span class="page_jump" onclick="jump_to(-2)">&laquo; first</span>
                 <span class="page_jump" onclick="jump_to(-1)">previous</span>
                 {% endif %}

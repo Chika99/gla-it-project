@@ -1,11 +1,14 @@
+// images pre-view functiion
 function handle_change_images(files) {
   const imgs = document.getElementsByClassName("uploaded_images_div");
   const length = imgs.length;
+  // remove pre images
   for (i = 0; i < length; i++) {
     const img = document.getElementsByClassName("uploaded_images_div")[0];
     img.parentNode.removeChild(img);
   }
   const windowURL = window.URL || window.webkitURL;
+  // insert image elements
   for (j = 0; j < files.length; j++) {
     const dataURL = windowURL.createObjectURL(files[j]);
     const div = document.createElement("div");

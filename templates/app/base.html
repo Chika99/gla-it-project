@@ -4,22 +4,22 @@
 <html lang="en-us">
 
 <head>
+    <!-- enable phones view -->
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>
+        <!-- base title -->
         {% block title_block %}
-        Base title
+        Aucenter
         {% endblock %}
     </title>
     <link rel="stylesheet" href="{% static 'css/main.css' %}" />
+    <!-- page icon -->
     <link rel="icon" href="{% static 'image/auction.svg' %}" />
-    <!--[if lt IE 9]>
-    <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
 </head>
 
 <body>
+    <!-- base navigation, not use another templete because it is easy -->
     <div class="navigation">
         <a class="icon" href="{% url 'app:index' %}">
             <img src="{% static 'image/auction.svg' %}" alt="icon svg" class="icon_img" />
@@ -53,19 +53,6 @@
     <div class="main_inner">
         {% block body_block %} {% endblock %}
     </div>
-    <!-- <hr />
-    <div>
-        <ul>
-            {% if user.is_authenticated %}
-
-            {% else %}
-            {{ user.id }}
-            <li><a href="{% url 'app:register' %}">Sign Up</a></li>
-            <li><a href="{% url 'app:login' %}">Login</a></li>
-            {% endif %}
-            <li><a href="{% url 'app:index' %}">Index</a></li>
-        </ul>
-    </div> -->
 </body>
 
 </html>

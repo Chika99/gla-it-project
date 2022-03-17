@@ -1,3 +1,4 @@
+// function to insert image element to enable image pre-view in page
 function handle_change_avatar(files) {
     const imgs = document.getElementsByClassName("uploaded_images_div");
     const length = imgs.length;

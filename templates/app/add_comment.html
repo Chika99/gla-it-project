@@ -1,6 +1,7 @@
 {% extends 'app/base.html' %}
 {% load static %}
 
+<!-- simple add comment page, may use in future, not used now -->
 {% block title_block %}
     Leave comment
 {% endblock %}
@@ -28,26 +29,10 @@
                         <textarea class="textarea_bar" rows="5" required="true" name="content" id="content"></textarea>
                     </div>
                 </div>
-                <!-- {{ form.as_p }} -->
                 <input class="submit_btn" type="submit" name="submit" value="Submit"/>
             </form>
             {% endif %}
         </div>
     </div>
 </div>
-    <!-- <h1>Leave comment</h1>
-    {% if added %}
-        Success
-        <a href="{% url 'app:order-detail' order_id %}">Return order detail</a>
-    {% else %}
-        {% if message %}
-        <div class="message">{{ message }}</div>
-        {% endif %}
-        <form id="comment-form" method="post" action="{% url 'app:add-comment' order_id %}"
-              enctype="multipart/form-data">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <input type="submit" name="submit" value="Submit"/>
-        </form>
-    {% endif %} -->
 {% endblock %}

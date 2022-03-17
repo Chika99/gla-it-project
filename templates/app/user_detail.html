@@ -1,27 +1,12 @@
 {% extends 'app/base.html' %}
 {% load static %}
 
+<!-- user detail page, if not the current user, show base information -->
 {% block title_block %}
-Profile
+{{user_info.username}}
 {% endblock %}
 
 {% block body_block %}
-<!-- {% if user.is_authenticated %}
-<ul>
-    <li>
-        <a href="{% url 'app:user' user.id %}">my account</a>
-    </li>
-    <li>
-        <a href="{% url 'app:add-order' %}">add order</a>
-    </li>
-    <li>
-        <a href="{% url 'app:logout' %}">logout</a>
-    </li>
-    <li>
-        <a href="{% url 'app:user_modify' user.id %}"> Edit my Information</a>
-    </li>
-</ul>
-{% endif %} -->
 <link rel="stylesheet" href="{% static 'css/user_detail.css' %}" />
 <div class="main_Div">
     <div class="user_detail_inner">
@@ -30,8 +15,8 @@ Profile
         </div>
         <div class="user_detail">
             <div class="avatar_div">
-                {% if user.avatar %}
-                <img src="{{ user.avatar.url }}" alt="user_avatar" class="avatar_pic">
+                {% if user_info.avatar %}
+                <img src="{{ user_info.avatar.url }}" alt="user_avatar" class="avatar_pic">
                 {% else %}
                 No avatar
                 {% endif %}
@@ -42,7 +27,10 @@ Profile
             <div class="detail_item">Address:
                 <div class="address">{{ user_info.address|default_if_none:"" }}</div>
             </div>
+            <!-- if is me, can edit -->
+            {% if user.id == user_info.id %} 
             <a class="btns" href="{% url 'app:user_modify' user.id %}"> Edit my Information</a>
+            {% endif %}
             <div class="item_title">Orders:</div>
             {% if user_info.orders|length == 0 %}
             <div class="no_bit_title">No order now.</div>
@@ -83,6 +71,7 @@ Profile
                 {% endfor %}
             </div>
             {% endif %}
+            <!-- different with orders, bids list is the orders which we have bid. -->
             <div class="item_title">Bids:</div>
             {% if user_info.bids|length == 0 %}
             <div class="no_bit_title">No bid now.</div>
@@ -132,36 +121,3 @@ Profile
     </div>
 </div>
 {% endblock %}
-
-<!-- status: {{ order.status }}
-<br>
-description: {{ order.description }}
-<br>
-tags:
-<br>
-start_price :{{ order.start_price }}
-<br>
-highest_price :{{ order.highest_price }}
-<br>
-publish_time: {{ order.publish_time }}
-<br>
-{% if order.bid %}
-bid_price: {{ order.bid.price }}
-<br>
-bid_time: {{ order.bid.time }}
-<br>
-{% endif %}
-end_time: {{ order.end_time }}
-<br>
-images:
-<img src="{{ image.img.url }}" alt="image" width="50">
-{% if order.status == 'F' %}
-<br>
-<a href="{% url 'app:user' order.buyer.id %}">buyer: {{ order.buyer.username }}</a>
-{% if user.id == order.seller.id or user.id == order.buyer.id %}
-<a href="{% url 'app:add-comment' order.id %}">add comment</a>
-{% endif %}
-{% endif %}
-<br>
-
-<hr> -->

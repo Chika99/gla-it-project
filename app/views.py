@@ -286,7 +286,7 @@ class ReplyMessageFormView(OrderRelatedFormView):
         reply = get_object_or_404(Message, id=self.kwargs.get('message_id'))
         return self.response(MessageForm(), None, False, reply=reply)
 
-
+# add comment function but not used now because of cridit level
 @method_decorator(login_required, name='dispatch')
 class CommentFormView(OrderRelatedFormView):
     template_name = 'app/add_comment.html'

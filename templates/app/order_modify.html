@@ -1,8 +1,9 @@
 {% extends 'app/base.html' %}
 {% load static %}
 
+<!-- order modify page, only able to change some detail of orders -->
 {% block title_block %}
-    order modify
+    Change order detail
 {% endblock %}
 
 {% block body_block %}
@@ -33,11 +34,9 @@
             {% endif %}
             <form id="order-form" method="post" action="{% url 'app:orderModify' data.id %}" enctype="multipart/form-data">
                 {% csrf_token %}
-                <!-- {{ form.as_p }} -->
-                <!-- have bug but not able to solve -->
+                <!-- have bug but not able to solve in django, django can not store image in front-end status -->
                 <!-- <div class="input_out">
                     <div class="input_title">images</div>
-
                     <div class="images_out" id="images_out">
                         <input class="input_display" accept="image/*" type="file" multiple="multiple" 
                             name="images" id="images_input" oninput="handle_change_images(this.files)"></input>
@@ -65,7 +64,7 @@
                             id="start_price" value="{{data.start_price}}"></input>
                     </div>
                 </div>
-                <!-- will cause problem -->
+                <!-- will cause problem so remove this change function -->
                 <!-- <div class="input_out">
                     <div class="input_title">End date</div>
                     <input class="input_bar_short" type="datetime-local" required="true" name="end_time"

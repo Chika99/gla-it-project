@@ -1,8 +1,8 @@
 {% extends 'app/base.html' %}
 {% load static %}
-
+<!-- change user profile page -->
 {% block title_block %}
-    user modify
+    Change your information
 {% endblock %}
 
 {% block body_block %}
@@ -20,6 +20,7 @@
             {% if message %}
             <div class="message">{{ message }}</div>
             {% endif %}
+            <!-- return message -->
             {% if added %}
             <span class="sucesss_text">Place success!</span>
             <a class="return_text" href="{% url 'app:order-detail' order_id %}">Return order detail.</a>
@@ -46,7 +47,7 @@
                 <div class="input_out">
                     <div class="input_title">Telephone</div>
                     <input class="input_bar" oninput="value=value.replace(/[^\d]/g,'')" name="tel"
-                        id="tel" value="{{user.tel|default_if_none:""}}"></input>
+                        id="tel" value="{{user.tel|default_if_none:''}}"></input>
                     <p class="input_warn"></p>
                 </div>
                 <div class="input_out">
@@ -61,45 +62,10 @@
                     <div class="input_title">Address</div>
                     <textarea class="textarea_bar" rows="5" name="address" id="address">{{user.address|default_if_none:""}}</textarea>
                 </div>
-                <!-- {{ form.as_p }} -->
                 <input class="submit_btn" type="submit" name="submit" value="Change"/>
             </form>
             {% endif %}
         </div>
     </div>
 </div>
-<!-- <div>
-    <h1>Edit My Information</h1>
-    <div>
-        <div>
-        <form action="{% url 'app:user_modify' user.id %}" method="POST">
-            {% csrf_token %}
-            <div>
-                
-            </div>
-            <div>
-                <div><span>Username:</span></div>
-                <div>{{user_form.username}}</div>
-            </div>
-            <div>
-                <div><span>Tel:</span></div>
-                <div>{{user_form.tel}}</div>
-            </div>
-            <div>
-                <div><span>Balance:</span></div>
-                <div>{{user_form.balance}}</div>
-            </div>
-            <div>
-                <div><span>address:</span></div>
-                <div>{{user_form.address}}</div>
-            </div>
-
-            <div>
-                <input type="submit" name="user_modify" value="submit">
-            </div>
-        </form>
-        </div>
-    </div>
- 
-</div> -->
 {% endblock %}

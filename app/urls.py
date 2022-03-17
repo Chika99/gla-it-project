@@ -28,7 +28,7 @@ urlpatterns = [
     path('orders/<int:order_id>/add_message/', AddMessageFormView.as_view(), name='add-message'),
     # Reply massage
     path('orders/<int:order_id>/<int:message_id>/reply/', ReplyMessageFormView.as_view(), name='reply-message'),
-    # Add comments - when received the goods
+    # Add comments - when received the goods, not used now
     path('orders/<int:order_id>/comment', CommentFormView.as_view(), name='add-comment'),
     # Order modification
     path("ordermodify/<id>", views.orderModify, name="orderModify"),

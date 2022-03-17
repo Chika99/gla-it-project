@@ -69,7 +69,7 @@ class Bid(models.Model):
     time = models.DateTimeField(auto_now=True)
 
 
-# The comment of goods class
+# The comment of goods class, used later because we do not have cridit system now
 class Comment(models.Model):
     id = models.AutoField(primary_key=True)
     order = models.ForeignKey(Order, on_delete=models.CASCADE)

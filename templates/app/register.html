@@ -1,6 +1,8 @@
 {% extends 'app/base.html' %}
 {% load static %}
 
+<!-- register -->
+<!-- every page not use form.s.p because we need styled input and styled function -->
 {% block title_block %}
 Register
 {% endblock %}
@@ -24,6 +26,7 @@ Register
                 {% endfor %}
             </div>
             {% endif %}
+            <!-- form with check function -->
             <form id="register-form" method="post" action="{% url 'app:register' %}" enctype="multipart/form-data">
                 {%csrf_token%}
                 <div class="input_out">
@@ -44,11 +47,13 @@ Register
                         id="confirm_password" type="password" onchange="check_confirm_password()"></input>
                     <p class="input_warn"></p>
                 </div>
+                <!-- tel should be number -->
                 <div class="input_out">
                     <div class="input_title">Telephone</div>
                     <input class="login_input" name="tel" id="tel" oninput="value=value.replace(/[^\d]/g,'')"></input>
                 </div>
                 <div class="btns">
+                    <!-- not use submit type because we need check js function while submit -->
                     <input class="login_btn" type="button" value="Sign Up" onClick="check_submit()"></input>
                     <div class="register_btn">
                         <span class="register_front_text">Had an account?</span>&nbsp;

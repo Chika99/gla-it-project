@@ -1,6 +1,7 @@
 {% extends 'app/base.html' %}
 {% load static %}
 
+<!-- add order page -->
 {% block title_block %}
 Add order
 {% endblock %}
@@ -15,6 +16,7 @@ Add order
             <h2>Add your new order</h2>
         </div>
         <div class="add_order_table">
+            <!-- success information -->
             {% if added %}
             <span class="sucesss_text">Add success!</span>
             <a class="return_text" href="{% url 'app:index' %}">Return to the homepage.</a>
@@ -24,10 +26,10 @@ Add order
             {% endif %}
             <form id="order-form" method="post" action="{% url 'app:add-order' %}" enctype="multipart/form-data">
                 {% csrf_token %}
-                <!-- {{ form.as_p }} -->
                 <div class="input_out">
                     <div class="input_title">Images</div>
                     <div class="images_out" id="images_out">
+                        <!-- enable images show -->
                         <input class="input_display" accept="image/*" type="file" multiple="multiple"
                             name="images" id="images_input" oninput="handle_change_images(this.files)"></input>
                         <label for="images_input" id="input_label" class="add_div">

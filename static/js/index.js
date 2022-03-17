@@ -1,9 +1,11 @@
+// search function
 function handle_search() {
   const page_url = window.location.href;
   const value = $("#search").val().replace(" ", "");
   if (value !== "") {
     if (page_url.indexOf("?") !== -1) {
       part_page_url = page_url.substring(0, page_url.indexOf("?"));
+      // jump to page 1 because result may not have enough page
       const new_url =
         part_page_url + "?keywords=" + value;
       window.location.href = new_url;
@@ -17,6 +19,7 @@ function handle_search() {
   }
 }
 
+// page select function
 function jump_to(param) {
   // page_num, but get by Element, because can not get param from page
   const page_num =

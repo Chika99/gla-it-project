@@ -1,6 +1,7 @@
 {% extends 'app/base.html' %}
 {% load static %}
 
+<!-- message simple page -->
 {% block title_block %}
 Leave message
 {% endblock %}
@@ -50,26 +51,4 @@ Leave message
         </div>
     </div>
 </div>
-<!-- <h1>Leave message</h1>
-{% if added %}
-Success
-<a href="{% url 'app:order-detail' order_id %}">Return order detail</a>
-{% else %}
-{% if reply %}
-reply to {{ reply.username }}: {{ reply.content }}
-<form id="message-form" method="post" action="{% url 'app:reply-message' order_id reply.id %}"
-    enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" name="submit" value="Submit" />
-</form>
-{% else %}
-<form id="message-form" method="post" action="{% url 'app:add-message' order_id %}" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" name="submit" value="Submit" />
-</form>
-<div onclick="rely={}">1111</div>
-{% endif %}
-{% endif %} -->
 {% endblock %}

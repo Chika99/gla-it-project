@@ -71,8 +71,7 @@
                     {% endif %}
                 </a>
                 <div>
-                    <a class="order_username_div" href="{% url 'app:user'
-                        order.seller.id %}">
+                    <a class="order_username_div" href="{% url 'app:user' order.seller.id %}">
                         {{ order.seller.username }}
                     </a>
                     <div class="published_time">published in {{ order.publish_time }}</div>
@@ -115,7 +114,6 @@
                         <div class="message_content">
                             {% if message.reply_id != null %}
                             <span class="reply_span">Reply to {{ message.reply.user.username }}:</span>
-                            <!-- todo -->
                             {% endif %}
                             {{ message.content }}
                         </div>
