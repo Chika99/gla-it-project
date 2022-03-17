@@ -7,6 +7,8 @@
 
 {% block body_block %}
 <link rel="stylesheet" href="{% static 'css/order_detail.css' %}" />
+<script type="text/javascript" src="{% static 'js/jquery-1.12.4.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/order_detail.js' %}"></script>
 <div class="main_Div">
     <div class="order_detail_inner">
         <div class="order_page_title">
@@ -95,6 +97,22 @@
             </div>
             {% endif %}
             <a href="{% url 'app:add-bid' order.id %}" class="bid_btn">Place Bid</a>
+            <!-- user help -->
+            <div class="instructions" onmouseenter="show_instruction()" onmouseleave="hide_instruction()">
+                <img class="instruction_image" src="{% static 'image/help.svg' %}" alt="instruction image"></img>
+                Bidding instructions
+                <div class="instruction_inner">
+                    <span class="red_span">
+                        1. Please ensure that your account has enough balance before the auction.
+                    </span>
+                    <br/>
+                    2. It is recommended that you bid one day before the auction ends. The closing time of the auction may change according to the actual situation.
+                    <br/>
+                    3. The account balance can be withdrawn at any time.
+                    <br/>
+                    4. If you do not win the auction item at the end of the auction, your bid will be returned to your account.
+                </div>
+            </div>
             {% if order.messages|length == 0 %}
             <div class="no_bit_title">No message now.</div>
             {% else %}

@@ -290,6 +290,7 @@
   font-size: 16px;
   margin: 20px 0;
   text-decoration: none;
+  vertical-align: middle;
 }
 .message_avatar{
   display: inline-block;
@@ -350,6 +351,41 @@
   font-size: 14px;
   text-decoration: underline;
   margin-left: 10px;
+}
+
+.instructions{
+  display: inline-flex;
+  font-size: 12px;
+  font-weight: lighter;
+  color: #666;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  vertical-align: middle;
+}
+
+.instruction_image{
+  height: 20px;
+  width: 20px;
+  margin: 0 10px;
+}
+
+.instruction_inner{
+  box-shadow: 0 0 5px rgb(0 0 0 / 20%);
+  position: absolute;
+  bottom:20px;
+  left: -50px;
+  height: auto;
+  width: 300px;
+  background-color: white;
+  padding: 10px;
+  color: #666;
+  visibility: hidden;
+}
+
+.red_span{
+  color: var(--text-red);
 }
 
 @media only screen and (max-width: 400px) {
