@@ -42,7 +42,11 @@ class OrderDetailDto(OrderDto):
     def __init__(self, order: Order):
         super().__init__(order)
         self.messages = [message for message in Message.objects.filter(order__id=order.id)]
-        self.bids = [bid for bid in Bid.objects.filter(order__id=order.id).order_by('-id')]
+        self.bids = []
+        for bid in Bid.objects.filter(order__id=order.id).order_by('-id'):
+            bid.price = round(bid.price / 100, 2)
+            self.bids.append(bid)
+
         self.comments = [comment for comment in Comment.objects.filter(order__id=order.id)]
 
 
