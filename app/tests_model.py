@@ -1,8 +1,8 @@
-# from anyio import BusyResourceError
+
 import datetime
 from django.test import TestCase
 
-from app.models import Bid, Order, Tag, User
+from app.models import Bid, Order, Tag, User, Comment, Message
 
 #test for models.User
 class UserTest(TestCase):
@@ -127,7 +127,7 @@ class OrderTest(TestCase):
 class TagTest(TestCase):
 
     #set up default database for test
-    def setUp(self):
+    def setUp(self) -> None:
         Tag.objects.create(id=0, name="test0")
     
     #test for creating Tag
@@ -167,7 +167,7 @@ class TagTest(TestCase):
 class BidTest(TestCase):
 
     #create default database for testing
-    def setUp(self):
+    def setUp(self) -> None:
         seller0 = User.objects.create(username="seller0")
         buyer0 = User.objects.create(username="buyer0")
         Order0 = Order.objects.create(id=0, seller=seller0, buyer=buyer0, title="test0", description="new", start_price=200, end_time=datetime.datetime(2022, 3, 21, 0, 0))    
@@ -224,6 +224,130 @@ class BidTest(TestCase):
         self.assertEqual(len(b), 1)
         c = Bid.objects.filter(user=buyer1)
         self.assertEqual(len(c), 1)
+
+#test for models.Comment
+class CommentTest(TestCase):
+
+    #create default database for test
+    def setUp(self) -> None:
+        seller0 = User.objects.create(username="seller0")
+        buyer0 = User.objects.create(username="buyer0")
+        Order0 = Order.objects.create(id=0, seller=seller0, buyer=buyer0, title="test0", description="new", start_price=200, end_time=datetime.datetime(2022, 3, 21, 0, 0))    
+        Comment.objects.create(id=0, order=Order0, user=buyer0, rate=1, content="test")
+    
+    #test for creating Comment
+    def test17_CreateComment(self):
+        seller1 = User.objects.create(username="seller1")
+        buyer1 = User.objects.create(username="buyer1")
+        Order1 = Order.objects.create(id=1, seller=seller1, buyer=buyer1, title="test1", description="old", start_price=100, end_time=datetime.datetime(2023, 3, 21, 0, 0))    
+        Comment.objects.create(id=1, order=Order1, user=buyer1, rate=2, content="meet")
+        a = Comment.objects.get(id=1)
+        self.assertEqual(a.id, 1)
+        self.assertEqual(a.order, Order1)
+        self.assertEqual(a.user, buyer1)
+        self.assertEqual(a.rate, 2)
+        self.assertEqual(a.content, "meet")
+
+    #test for deleting Comment
+    def test18_DeleteComment(self):
+        a = Comment.objects.get(id=0)
+        a.delete()
+        b = Comment.objects.filter(id=0)
+        self.assertEqual(len(b), 0)
+
+    #test for updateing Comment
+    def test19_UpdateComment(self):
+        seller1 = User.objects.create(username="seller1")
+        buyer1 = User.objects.create(username="buyer1")
+        Order1 = Order.objects.create(id=1, seller=seller1, buyer=buyer1, title="test1", description="old", start_price=100, end_time=datetime.datetime(2023, 3, 21, 0, 0))    
+        a = Comment.objects.get(id=0)
+        a.id = 1
+        a.user = seller1
+        a.order = Order1
+        a.rate = 3
+        a.content = "empty"
+        a.save()
+        b = Comment.objects.get(id=1)
+        self.assertEqual(b.id, 1)
+        self.assertEqual(b.user, seller1)
+        self.assertEqual(b.order, Order1)
+        self.assertEqual(b.rate, 3)
+        self.assertEqual(b.content, "empty")
+
+    #test for finding Comment
+    def test20_FindComment(self):
+        #create a Comment for test, which means that there are 2 Comments in the database
+        seller1 = User.objects.create(username="seller1")
+        buyer1 = User.objects.create(username="buyer1")
+        Order1 = Order.objects.create(id=1, seller=seller1, buyer=buyer1, title="test1", description="old", start_price=100, end_time=datetime.datetime(2023, 3, 21, 0, 0))    
+        Comment.objects.create(id=1, order=Order1, user=buyer1, rate=2, content="meet")
+        a = Comment.objects.filter(id__contains=1)
+        self.assertEqual(len(a), 1)
+        b = Comment.objects.filter(content__contains="e")
+        self.assertEqual(len(b), 2)
+
+#test for models.Message
+class MessageTest(TestCase):
+
+    #create default database for testing
+    def setUp(self) -> None:
+        seller0 = User.objects.create(username="seller0")
+        buyer0 = User.objects.create(username="buyer0")
+        Order0 = Order.objects.create(id=0, seller=seller0, buyer=buyer0, title="test0", description="new", start_price=200, end_time=datetime.datetime(2022, 3, 21, 0, 0))    
+        Message.objects.create(id=0, order=Order0, user=buyer0, content="message")
+
+    #test for creating message
+    def test21_CreateMessage(self):
+        seller1 = User.objects.create(username="seller1")
+        buyer1 = User.objects.create(username="buyer1")
+        Order1 = Order.objects.create(id=1, seller=seller1, buyer=buyer1, title="test1", description="old", start_price=100, end_time=datetime.datetime(2023, 3, 21, 0, 0))    
+        Message.objects.create(id=1, order=Order1, user=buyer1, content="create message")
+
+        #get this message from database and try to assert it
+        a = Message.objects.get(id=1)
+        self.assertEqual(a.id, 1)
+        self.assertEqual(a.order, Order1)
+        self.assertEqual(a.user, buyer1)
+        self.assertEqual(a.content, "create message")
+
+    #test for deleting message
+    def test22_DeleteMessage(self):
+        a = Message.objects.get(id=0)
+        a.delete()
+        b = Message.objects.filter(id=0)
+        self.assertEqual(len(b), 0)
+
+    #test for updating message
+    def test23_UpdateMessage(self):
+        seller1 = User.objects.create(username="seller1")
+        buyer1 = User.objects.create(username="buyer1")
+        Order1 = Order.objects.create(id=1, seller=seller1, buyer=buyer1, title="test1", description="old", start_price=100, end_time=datetime.datetime(2023, 3, 21, 0, 0))    
+        a = Message.objects.get(id=0)
+        a.id = 2
+        a.order = Order1
+        a.user = buyer1
+        a.content = "update"
+        a.save()
+        b = Message.objects.get(id=2)
+        self.assertEqual(b.id, 2)
+        self.assertEqual(b.order, Order1)
+        self.assertEqual(b.user, buyer1)
+        self.assertEqual(b.content, "update")
+
+    #test for finding message
+    def test24_FindMessage(self):
+        #create a message for testing
+        seller1 = User.objects.create(username="seller1")
+        buyer1 = User.objects.create(username="buyer1")
+        Order1 = Order.objects.create(id=1, seller=seller1, buyer=buyer1, title="test1", description="old", start_price=100, end_time=datetime.datetime(2023, 3, 21, 0, 0))    
+        Message.objects.create(id=1, order=Order1, user=buyer1, content="create message")
+        a = Message.objects.filter(id=1)
+        self.assertEqual(len(a), 1)
+        b = Message.objects.filter(content__contains="me")
+        self.assertEqual(len(b), 2)
+        c = Message.objects.filter(user=seller1)
+        self.assertEqual(len(c), 0)
+
 
 
 
