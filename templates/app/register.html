@@ -4,77 +4,83 @@
 <!-- register -->
 <!-- every page not use form.s.p because we need styled input and styled function -->
 {% block title_block %}
-Register
+    Register
 {% endblock %}
 
 {% block body_block %}
-<script type="text/javascript" src="{% static 'js/jquery-1.12.4.min.js' %}"></script>
-<link rel="stylesheet" href="{% static 'css/login.css' %}" />
-<script type="text/javascript" src="{% static 'js/register.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery-1.12.4.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/login.css' %}"/>
+    <script type="text/javascript" src="{% static 'js/register.js' %}"></script>
 
-<div class="main_Div">
-    <div class="login_inner">
-        <div class="login_title">
-            <h2>Create an account</h2>
-        </div>
-        <div class=" login_table">
-            {% if form.errors %}
-            <div class="errors">
-                Errors:
-                {% for value in form.errors.values %}
-                {{ value }}
-                {% endfor %}
+    <div class="main_Div">
+        <div class="login_inner">
+            <div class="login_title">
+                <h2>Create an account</h2>
             </div>
-            {% endif %}
-            <!-- form with check function -->
-            <form id="register-form" method="post" action="{% url 'app:register' %}" enctype="multipart/form-data">
-                {%csrf_token%}
-                <div class="input_out">
-                    <div class="input_title">Username or email</div>
-                    <input class="login_input" autoFocus required="true" placeholder="Required" name="username"
-                        id="username" onchange="check_username()"></input>
-                    <p class="input_warn"></p>
-                </div>
-                <div class="input_out">
-                    <div class="input_title">Password</div>
-                    <input class="login_input" required="true" placeholder="Required" name="password" id="password"
-                        type="password" onchange="check_password()"></input>
-                    <p class="input_warn"></p>
-                </div>
-                <div class="input_out">
-                    <div class="input_title">Confirm Password</div>
-                    <input class="login_input" required="true" placeholder="Required" name="confirm_password"
-                        id="confirm_password" type="password" onchange="check_confirm_password()"></input>
-                    <p class="input_warn"></p>
-                </div>
-                <!-- tel should be number -->
-                <div class="input_out">
-                    <div class="input_title">Telephone</div>
-                    <input class="login_input" name="tel" id="tel" oninput="value=value.replace(/[^\d]/g,'')"></input>
-                </div>
-                <!-- user privacy notice, will decelop later -->
-                <div class="instructions" onmouseenter="show_instruction()" onmouseleave="hide_instruction()">
-                    <img class="instruction_image" src="{% static 'image/notice.svg' %}" alt="instruction image"></img>
-                    Registering means agreeing to our user privacy notice.
-                    <div class="instruction_inner">
-                        <span class="red_span">User privacy notice:</span>
-                        The nature of our website means we often work in partnership with other organisations, however, we will not share your information with any other organisation unless we have your permission first, unless we have a legitimate interest to do so.
+            <div class=" login_table">
+                {% if form.errors %}
+                    <div class="errors">
+                        Errors:
+                        {% for value in form.errors.values %}
+                            {{ value }}
+                        {% endfor %}
                     </div>
-                </div>
-                <div class="btns">
-                    <!-- not use submit type because we need check js function while submit -->
-                    <input class="login_btn" type="button" value="Sign Up" onClick="check_submit()"></input>
-                    <div class="register_btn">
-                        <span class="register_front_text">Already have an account?</span>&nbsp;
-                        <span class="register_text">
+                {% endif %}
+                <!-- form with check function -->
+                <form id="register-form" method="post" action="{% url 'app:register' %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="input_out">
+                        <div class="input_title">Username or email</div>
+                        <input class="login_input" autoFocus required="true" placeholder="Required" name="username"
+                               id="username" onchange="check_username()"></input>
+                        <p class="input_warn"></p>
+                    </div>
+                    <div class="input_out">
+                        <div class="input_title">Password</div>
+                        <input class="login_input" required="true" placeholder="Required" name="password" id="password"
+                               type="password" onchange="check_password()"></input>
+                        <p class="input_warn"></p>
+                    </div>
+                    <div class="input_out">
+                        <div class="input_title">Confirm Password</div>
+                        <input class="login_input" required="true" placeholder="Required" name="confirm_password"
+                               id="confirm_password" type="password" onchange="check_confirm_password()"></input>
+                        <p class="input_warn"></p>
+                    </div>
+                    <!-- tel should be number -->
+                    <div class="input_out">
+                        <div class="input_title">Telephone</div>
+                        <input class="login_input" name="tel" id="tel"
+                               oninput="value=value.replace(/[^\d]/g,'')"></input>
+                    </div>
+                    <!-- user privacy notice, will decelop later -->
+                    <div class="instructions" onmouseenter="show_instruction()" onmouseleave="hide_instruction()">
+                        <img class="instruction_image" src="{% static 'image/notice.svg' %}"
+                             alt="instruction image"></img>
+                        Registering means agreeing to our user privacy.
+                        <div class="instruction_inner">
+                            Helper:
+                            <br/>
+                            <span class="red_span">User privacy notice:</span>
+                            The nature of our website means we often work in partnership with other organisations,
+                            however, we will not share your information with any other organisation unless we have your
+                            permission first, unless we have a legitimate interest to do so.
+                        </div>
+                    </div>
+                    <div class="btns">
+                        <!-- not use submit type because we need check js function while submit -->
+                        <input class="login_btn" type="button" value="Sign Up" onClick="check_submit()"></input>
+                        <div class="register_btn">
+                            <span class="register_front_text">Already have an account?</span>&nbsp;
+                            <span class="register_text">
                             <a href="/login/">Log in</a>
                         </span>
+                        </div>
                     </div>
-                </div>
-                {# {% csrf_token %}#}
-            </form>
+                    {# {% csrf_token %}#}
+                </form>
+            </div>
         </div>
     </div>
-</div>
 
 {% endblock %}
