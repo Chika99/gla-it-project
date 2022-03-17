@@ -257,7 +257,7 @@
 }
 
 .bid_money {
-  width: 60px;
+  min-width: 80px;
   margin-right: 20x;
   display: inline-block;
   text-align: left;
