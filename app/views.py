@@ -331,7 +331,7 @@ def logout(request):
 
 
 def check_order():
-    # 正在出售的订单
+    # order on sale
     for order in Order.objects.filter(status='U'):
         if order.end_time <= timezone.now():
             logger = logging.getLogger(__name__)
@@ -353,7 +353,7 @@ def check_order():
                     user.balance += bid.price
                     logger.warning(f'user:{user.id} get returned bid:{bid.price}')
                     user.save()
-            # 没有人买
+            # no bid
             if not first:
                 order.status = 'T'
                 order.save()
