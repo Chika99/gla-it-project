@@ -65,7 +65,7 @@
             <div class="detail_avatar_out">
                 <a class="avatar" href="{% url 'app:user' order.seller.id %}">
                     {% if order.seller.avatar %}
-                    <img src="{{ order.seller.avatar }}" alt="user_avatar" class="avatar_pic">
+                    <img src="{{ order.seller.avatar.url }}" alt="user_avatar" class="avatar_pic">
                     {% else %}
                     <img src="{% static 'image/avatar_default.svg' %}" alt="user_default_avatar" class="avatar_pic">
                     {% endif %}
@@ -105,7 +105,7 @@
                 <div class="message_record">
                     <div class="message_avatar">
                         {% if bid.user.avatar %}
-                        <img src="{{ message.user.avatar }}" alt="message_user_avatar" class="avatar_pic">
+                        <img src="{{ message.user.avatar.url }}" alt="message_user_avatar" class="avatar_pic">
                         {% else %}
                         <img src="{% static 'image/avatar_default.svg' %}" alt="user_default_avatar" class="avatar_pic">
                         {% endif %}

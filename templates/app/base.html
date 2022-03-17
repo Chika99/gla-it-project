@@ -35,7 +35,7 @@
         <a class="avatar_out" href="{% url 'app:user' user.id %}">
             <div class="avatar">
                 {% if user.avatar %}
-                <img src="{{ user.avatar }}" alt="user_avatar" class="avatar_pic">
+                <img src="{{ user.avatar.url }}" alt="user_avatar" class="avatar_pic">
                 {% else %}
                 <img src="{% static 'image/avatar_default.svg' %}" alt="user_default_avatar" class="avatar_pic">
                 {% endif %}
