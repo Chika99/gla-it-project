@@ -192,8 +192,7 @@ class AddOrderView(FormView):
     def form_invalid(self, form):
         return self.render_to_response({'form': form})
 
-
-# 提供order_id注入get和form上下文, 继承使用
+# use order_id to inheritance
 class OrderRelatedFormView(FormView):
 
     def get_context_data(self, **kwargs):
@@ -235,7 +234,7 @@ class AddBidFormView(OrderRelatedFormView):
         if last_highest_bid and bid.price < last_highest_bid.price:
             return bad_request('bid is lower than highest price')
 
-        # 如果有上次赌注
+        # if there is a last bid 
         last_bid = Bid.objects.filter(user__id=self.request.user.id, order__id=order.id).order_by('-price').first()
         price_diff = (bid.price - last_bid.price) if last_bid else bid.price
         if price_diff > balance:

@@ -66,12 +66,12 @@ class UserDetailDto:
             setattr(self, k, user.__dict__.get(k))
         self.balance = round(self.balance / 100, 2)
         self.avatar = user.avatar.url if user.avatar else None
-        # 添加自己的订单
+        # add my order
         self.orders = [OrderDto(order) for order in Order.objects.filter(seller_id=user.id)]
-        # 添加自己下注的
+        # add my bid
         self.bids = [
             OrderDto(order, bid=Bid.objects.filter(order__id=order.id, user__id=user.id).order_by('-price').first())
             for order in Order.objects.filter(bid__user_id=user.id).distinct()
         ]
-        # 按照时间排序
+        # order by data and time
         self.orders = sorted(self.orders, key=lambda x: x.bid.time if x.bid else x.publish_time, reverse=True)
