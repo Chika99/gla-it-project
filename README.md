@@ -10,7 +10,7 @@
 1. 拉取最新版本`git pull`
 2. 更新依赖`pip install -r requirements.txt`
 3. 模型修改创建迁移`python manage.py makemigrations`
-4. 应用迁移`python manage.py migrate`
+4. 应用迁移`python manage.py migrate --run-syncdb`
 5. 开启服务`django-admin runserver`
    - 如果无法运行，检查`DJANGO_SETTINGS_MODULE`环境变量
      - Linux/Mac `export DJANGO_SETTINGS_MODULE=auction.settings`

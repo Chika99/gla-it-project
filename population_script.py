@@ -1,8 +1,6 @@
 import os
 import random
 
-from django.utils.timezone import make_aware
-
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'auction.settings')
 
 import django
@@ -68,6 +66,7 @@ def add_user_and_order(user):
     # create user
     u = User.objects.create_user(**user)
     u.save()
+    print(f'Created user:username={u.username}, password={user.get("password")}')
     if u.username == 'admin':
         return
     added_users.append(u)
@@ -81,7 +80,7 @@ def add_user_and_order(user):
                 'title': o,
                 'description': f'this is a {o} description',
                 'start_price': f.random_int(),
-                'end_time': make_aware(f.future_date()),
+                'end_time': f.future_date(),
                 'seller': u,
             })
         oo.save()
@@ -120,6 +119,6 @@ def add_message():
 
 
 if __name__ == '__main__':
-    print('Starting population script...')
+    print('Start population')
     populate()
     print('Populated!')
