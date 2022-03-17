@@ -118,7 +118,9 @@
                 {% endfor %}
             </div>
             {% endif %}
+            {% if user.id == user_info.id %} 
             <a class="btns" href="{% url 'app:logout' %}">Log out</a>
+            {% endif %}
         </div>
     </div>
 </div>
