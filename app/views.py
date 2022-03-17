@@ -1,4 +1,5 @@
 import logging
+from typing import Union
 
 from PIL import Image
 from django.contrib.auth import logout as user_logout
@@ -50,7 +51,7 @@ class OrderView(ListView):
         tags = self.request.GET.getlist('tags', [])
         for i in tags:
             s = Order.objects.filter(tag__name=i)
-            query_set = query_set | s if query_set else s
+            query_set = Union[query_set, s] if query_set else s
 
         keywords = self.request.GET.get('keywords')
         if keywords:
