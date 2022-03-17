@@ -63,7 +63,7 @@ class OrderView(ListView):
             'end_time': 'end_time',
         }
 
-        # 只允许一个排序
+        # only allow one sort
         for i in ref:
             if i in self.request.GET.dict():
                 s = Order.objects.order_by(f'-{ref[i]}' if self.request.GET.get(i) == 'desc' else ref[i])
