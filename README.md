@@ -19,3 +19,4 @@
      - Windows `set DJANGO_SETTINGS_MODULE=auction.settings`
      - 或启动时指定 `django-admin runserver --settings=auction.settings`
    - 如果提示找不到 auction 模块，尝试`python manage.py runserver`
+7. test
