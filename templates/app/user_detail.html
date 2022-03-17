@@ -44,6 +44,9 @@ Profile
             </div>
             <a class="btns" href="{% url 'app:user_modify' user.id %}"> Edit my Information</a>
             <div class="item_title">Orders:</div>
+            {% if user_info.orders|length == 0 %}
+            <div class="no_bit_title">No order now.</div>
+            {% else %}
             <div class="orders">
                 {% for order in user_info.orders %}
                 <div class="order_out">
@@ -68,15 +71,22 @@ Profile
                             {{ order.start_price }}
                             {% endif %}
                         </div>
-                        {% if user.id == order.seller.id %}
+                        {% if user.id == order.seller.id and order.status == 'U' %}
                         <a class="modify" href="{% url 'app:orderModify' order.id %}">Modify</a>
                         <a class="modify" href="{% url 'app:orderModifyStatus' order.id %}">Cancel Order</a>
+                        {% else %}
+                        <a class="modify_disabled" href="{% url 'app:orderModify' order.id %}">Modify</a>
+                        <a class="modify_disabled" href="{% url 'app:orderModifyStatus' order.id %}">Cancel Order</a>
                         {% endif %}
                     </div>
                 </div>
                 {% endfor %}
             </div>
+            {% endif %}
             <div class="item_title">Bids:</div>
+            {% if user_info.bids|length == 0 %}
+            <div class="no_bit_title">No bid now.</div>
+            {% else %}
             <div class="orders">
                 {% for order in user_info.bids %}
                 <div class="order_out">
@@ -116,6 +126,7 @@ Profile
                 </div>
                 {% endfor %}
             </div>
+            {% endif %}
             <a class="btns" href="{% url 'app:logout' %}">Log out</a>
         </div>
     </div>
