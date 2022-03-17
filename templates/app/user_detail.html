@@ -76,6 +76,46 @@ Profile
                 </div>
                 {% endfor %}
             </div>
+            <div class="item_title">Bids:</div>
+            <div class="orders">
+                {% for order in user_info.bids %}
+                <div class="order_out">
+                    <a href="{% url 'app:order-detail' order.id %}">
+                        <div class="img_out">
+                            {% if order.buyer == user.id %}
+                            <div class="success">Success</div>
+                            {% elif order.buyer %}
+                            <div class="fail">Fail</div>
+                            {% else %}
+                            <div class="selling">Selling</div>
+                            {% endif %}
+                            {% for image in order.images %}
+                            {% if forloop.counter == 1 %}
+                            <img class="imgs" src="{{ image.img.url }}" alt="image">
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                    </a>
+                    <div class="padding_box">
+                        <div class="order_href">
+                            <div class="order_title">{{ order.title }}</div>
+                        </div>
+                        <div class="order_price">
+                            <span class="pound_icon">￡</span>
+                            {% if order.highest_price %}
+                            {{ order.highest_price }}
+                            {% else %}
+                            {{ order.start_price }}
+                            {% endif %}
+                        </div>
+                        {% if user.id == order.seller.id %}
+                        <a class="modify" href="{% url 'app:orderModify' order.id %}">Modify</a>
+                        <a class="modify" href="{% url 'app:orderModifyStatus' order.id %}">Cancel Order</a>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
             <a class="btns" href="{% url 'app:logout' %}">Log out</a>
         </div>
     </div>
