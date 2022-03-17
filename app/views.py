@@ -115,7 +115,7 @@ def orderModify(request, id):
         o = Order.objects.get(id=id)
         o.title = data["title"]
         o.description = data['description']
-        o.start_price = round(data["start_price"], 2) * 100
+        o.start_price = round(float(data["start_price"]), 2) * 100
         o.save()
         return HttpResponseRedirect("/")
 

@@ -37,10 +37,10 @@ Profile
                 {% endif %}
             </div>
             <div class="username">{{ user_info.username }}</div>
-            <div class="detail_item">Tel:<span class="number">{{ user_info.tel }}</span></div>
+            <div class="detail_item">Tel:<span class="number">{{ user_info.tel|default_if_none:"" }}</span></div>
             <div class="detail_item">Balance:<span class="number">￡{{ user_info.balance|floatformat:2 }}</span></div>
             <div class="detail_item">Address:
-                <div class="address">{{ user_info.address }}</div>
+                <div class="address">{{ user_info.address|default_if_none:"" }}</div>
             </div>
             <a class="btns" href="{% url 'app:user_modify' user.id %}"> Edit my Information</a>
             <div class="item_title">Orders:</div>
